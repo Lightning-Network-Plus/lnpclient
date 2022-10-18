@@ -1,7 +1,7 @@
 # README
 
 ## Build Docker image
-```docker buildx build --platform linux/arm64,linux/amd64 --tag lightningnetworkplus/lnpclient:v0.1.9 --output "type=registry" .```
+```docker buildx build --platform linux/arm64,linux/amd64 --tag lightningnetworkplus/lnpclient:v0.1.11 --output "type=registry" .```
 
 ## Required to run locally
 
@@ -13,7 +13,7 @@
 
 * No background jobs (ex. sidekiq)
 
-* Requires a bitcoin lightning node that would simulate an umbrel node locally with the following environment variables
+* Requires a bitcoin lightning node (LND) that would simulate an umbrel node locally with the following environment variables
 
 ## Environmental variables
 
