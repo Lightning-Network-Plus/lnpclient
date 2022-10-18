@@ -1,0 +1,47 @@
+- swap_capacity = swap["capacity_sats"]
+- image_webp = shape_image(swap_capacity, swap["participant_max_count"], "webp", "card")
+- image_jpg = shape_image(swap_capacity, swap["participant_max_count"], "jpg", "card")
+- shape = shape(swap["participant_max_count"])
+- image_alt = shape + " shape over clouds"
+- swap_link = "/swaps/" + swap["id"].to_s
+- status_color = status_color(swap["status"])
+.relative.min-w-0.w-full.transition.duration-150.transform.hover:scale-105.filter.hover:brightness-125
+  .flex.flex-col.h-full
+    .bg-white.dark:bg-black
+      = link_to swap_link do
+        %picture
+          %source{srcset: image_webp, alt: image_alt, width: "800", height: "602", type: "image/webp"}
+          %source{srcset: image_jpg, alt: image_alt, width: "800", height: "602", type: "image/jpeg"}
+          = image_tag image_jpg, alt: image_alt, width: "800", height: "602"
+    %p.text-white.px-6.py-2.swap_status{class: "bg-#{status_color}"}
+      - case swap["status"]
+      - when "pending"
+        - if swap["participant_min_channels_count"].present? || swap["participant_min_capacity_sats"].present? || swap["description"].present?
+          %span Open with Restrictions
+        - else
+          %span Open for Application
+      - when "opening"
+        %span Opening Channels
+      - when "completed"
+        %span Completed
+      - else
+        %span Unknown Status
+    .bg-white.dark:bg-black.rounded-br-2xl.rounded-bl-xl.shadow-md.p-6
+      %p= shape.capitalize + " Capacity"
+      %p.text-2xl.font-bold= number_with_delimiter(swap_capacity, delimeter: ",").to_s + " SAT"
+      %p.font-light= (swap_capacity.to_f/1000000).to_s + "M SAT / " + (swap_capacity.to_f/100000000).round(4).to_s + " BTC"
+      %p.mt-4 Spaces Available
+      - if swap["participant_waiting_for_count"].to_i > 0
+        %p.text-2xl.font-bold
+          %span= swap["participant_waiting_for_count"].to_s
+          %span of
+          %span= swap["participant_max_count"].to_s
+      - else
+        %p.text-2xl.font-bold None
+      .flex.mt-6.mb
+        .flex-none= link_to (icon("fas", "eye", class: "mr-2") + "View Details"), swap_link, class: light_button
+        .flex-grow
+        - unless swap["comments_count"].nil?
+          - if swap["comments_count"] > 0
+            .flex-none
+              %span= link_to icon("fas", "comment", class: " mr-2") + swap["comments_count"].to_s, swap_link, anchor: "comments", class: light_button

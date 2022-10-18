@@ -1,0 +1,53 @@
+.bg-gray-100.dark:bg-black.rounded-t-lg.rounded-b-2xl.p-8.shadow-lg
+  %h1.text-3xl.font-bold.mb-4 Create New Swap
+  = form_tag(swaps_path, method: "post", id: "swap-form") do
+    .grid.grid-cols-1.md:grid-cols-2
+      .grid-2.pr-4
+        %p.text-sm.mt-1
+          %span By creating a new liquidity swap, you are setting up the rules for this swap. Other Lightning Node operators will be able to join your swap in order to create outgoing and incoming liquidity for every participant.
+        %p.text-sm.mt-2
+          %span You will automatically join your new swap as
+          %strong Node A
+          %span , and commit to open a channel to
+          %strong Node B
+          %span once all spaces in the swap are filled. If participants fail to open channels, you may not receive an incoming channel, however you will not lose any funds and your newly opened channel will remain operational.
+        %p.text-sm.mt-2  
+          %span You will be able to delete your swap until a new participant joins.
+        %p.mt-4 Shape / Number of Participants
+        %p.text-sm.text-gray-500.mb-2.mt-1
+          %span The more nodes the longer it usually takes to find all participants. If you're unsure
+          %strong choose a triangle,
+          %span as it's the best in most situations.
+        = select_tag :participants, options_for_select([["Dual Funded: 2 Nodes (LND BOS only)","2"],["Triangle: 3 Nodes (Recommended)","3"],["Square: 4 Nodes","4"],["Pentagon: 5 Nodes","5"]], 3), prompt: "Please Select ▾", class: white_button
+        %p.mt-6 Capacity in Satoshis
+        %p.text-sm.text-gray-500.mt-1 1000000 SAT (1M SAT/ 0.01 BTC) or larger channel capacity is recommended. Maximum: 1000000000 (10 BTC).
+        %p.text-sm.text-gray-500.mt-1 For Dual Funded Channel Agreements with 2 Nodes, please specify only your side of the capacity (half of total channel capacity).
+        .flex
+          %span.flex-none= number_field_tag :capacity, 1000000, class: field + "w-36"
+          %span.flex-none.font-bold.mt-4.ml-2 SAT
+        %p.mt-4 Duration in Months
+        %p.text-sm.text-gray-500.mt-1 Length of time channels should be kept open as minimum. 3 months or more recommended. Maximum: 60.
+        .flex
+          %span.flex-none= number_field_tag :duration, 12, class: field + "w-16"
+          %span.flex-none.font-bold.mt-4.ml-2 Months
+      .grid-1.pr-4.mt-4.md:mt-0
+        .p-4.rounded.bg-gray-200.dark:bg-gray-900
+          %p.text-xl Optional Restrictions
+          %p.text-sm.text-gray-500.mt-1 Describe any rules, objectives or desires for this swap to follow. Please keep in mind the ethos of Bitcoin, and be as inclusive as possible to welcome new node operators.
+          %p.mt-4 Minimum Number of Channels
+          %p.text-sm.text-gray-500.mt-1 Restrict participants to only node operators who have a minimum number of channels opened with their node as reported within their profile.
+          .flex
+            %span.flex-none= number_field_tag :min_channels, nil, class: dark_field + "w-16"
+            %span.flex-none.font-bold.mt-4.ml-2 Channels
+          %p.mt-4 Minimum Node Capacity
+          %p.text-sm.text-gray-500.mt-1 Restrict participants to only node operators who have a minimum amount of channel capacity as reported within their profile.
+          .flex
+            %span.flex-none= number_field_tag :min_capacity, nil, class: dark_field + "w-36"
+            %span.flex-none.font-bold.mt-4.ml-2 SAT
+          %p.mt-4 Additional Rules
+          %span= text_area_tag :rules, nil, class: dark_field + "w-full"
+          -# %p.mt-2
+          -#   %span= check_box_tag :private, 1, false
+          -#   %span.ml-1 Private
+          -# %p.text-sm.text-gray-500.mt-1.mb-2 Swap is not listed and application is protected by pin code. For friend groups.
+    %p.mt-2= submit_tag "Start Swap", class: positive_button + "mt-4"

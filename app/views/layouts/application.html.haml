@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    = render "layouts/meta", meta: @meta
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "https://cdn.tailwindcss.com"
+    = javascript_include_tag "https://kit.fontawesome.com/6244514d94.js", crossorigin: "anonymous"
+    = javascript_importmap_tags
+    = render "layouts/theme_config"
+  %body.bg-gray-500.dark:bg-black.shadow-lg.font-lato
+    = render partial: "layouts/navigation/intro"
+    = render partial: "layouts/navigation/nav"
+    %main.bg-gray-200.dark:bg-gray-900.text-gray-700.dark:text-gray-100.h-full
+      .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.py-2
+        = render "layouts/notice_alert"
+        .my-6
+          = yield
+      = render "layouts/footer"

@@ -1,0 +1,13 @@
+- if @lnd_response.present?
+  .my-4
+    %p.bg-yellow-100.dark:bg-yellow-900.mb-6.px-6.py-4.rounded= @lnd_response.first
+.grid.grid-cols-1.md:grid-cols-2.gap-4
+  .col-1
+    = render "swaps/details"
+  .col-2
+    .relative.min-w-0.w-full
+      = render "swaps/next/next"
+      %hr.py-2.mt-6.border-dotted.border-gray-500
+      = render "swaps/status/status"
+      %hr.py-2.mb-6.border-dotted.border-gray-500
+      = render partial: 'swaps/comments'

@@ -1,0 +1,18 @@
+%h1.text-3xl.font-light.mb-4 My Swaps
+- if @json.present?
+  %h2.text-xl.mb-6 Open for Applications
+  .grid.gap-6.xl:grid-cols-4.lg:grid-cols-3.md:grid-cols-2
+    - @json_pending.each do |swap|
+      = render "swaps/swap", swap: swap
+  %hr.py-2.mt-8.border-dotted.border-gray-500
+  %h2.text-xl.mb-6 Opening Channels
+  .grid.gap-6.xl:grid-cols-4.lg:grid-cols-3.md:grid-cols-2
+    - @json_opening.each do |swap|
+      = render "swaps/swap", swap: swap
+  %hr.py-2.mt-8.border-dotted.border-gray-500
+  %h2.text-xl.mb-6 Completed
+  .grid.gap-6.xl:grid-cols-4.lg:grid-cols-3.md:grid-cols-2
+    - @json_completed.each do |swap|
+      = render "swaps/swap", swap: swap
+- else
+  = render "shared/node_not_found"

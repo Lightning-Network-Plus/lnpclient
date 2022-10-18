@@ -1,0 +1,44 @@
+- if @notifications_count.to_i > 0
+  %p.bg-yellow-100.dark:bg-yellow-900.mb-6.px-6.py-4.rounded= link_to (icon("fas", "bell", class: "mr-2 animate-swing") + "View " + pluralize(@notifications_count, "notification")), notifications_path, class: light_button_notice
+%h2.text-center.mb-8.py-10.px-6.rounded-xl.shadow-lg.bg-scroll{style: "background: #5d23ba url(#{cdn_static("neon-clouds-optimized.webp")}) no-repeat center center; background-size: cover;"}
+  .text-2xl.md:text-4xl.font-light.mb-3.text-white Get Incoming Capacity
+  .text-2xl.md:text-3xl.font-light.mb-3.text-white Double Your Channels
+  .text-2xl.md:text-2xl.font-light.mb-3.text-white Decentralize the Network
+  .text-2xl.md:text-xl.font-light.mb-8.text-white Earn More Routing Fees
+  .flex.items-center.justify-center.mb-2
+    .flex-none.mr-2= link_to "About", about_path, class: secondary_button, title: "About LightningNetwork+"
+    .flex-none= link_to "Features", features_path, class: positive_button, alt: "Features of LightningNetwork+"
+%h2.text-3xl.font-light.mb-2 How Does This Work?
+%p.mb-2.text-lg If you have a Bitcoin Lightning Node and you want to open channels to have both outgoing and incoming capacity, we can help you. Here you can easily join a so called liquidity swap where multiple users like you team up and open channels to each other. This setup results in a free incoming channel to you in return for you opening one to someone else. The process takes 4 simple steps. We will give you instructions all throughout the process to make it easy.
+%p.mb-8 LN+ has two versions: online and offline. This is the offline version, which gives you the core features of LN+ in addition to two features that are not available online: auto-login with your node and single click channel open. The online version offers several other functions not available offline, such as rich searchable node profiles, direct messages to node operators, a support section, and a few other things. For the more full featured app visit LN+ online at #{link_to "https://lightningnetwork.plus", "https://lightningnetwork.plus", class: light_button, target: :_blank}.
+.grid.grid-cols-1.lg:grid-cols-4.md:grid-cols-2.gap-6.mb-10
+  .col-1.bg-blue-700.text-white.p-6.rounded-xl.shadow-lg
+    %p.text-4xl.mb-4.text-center= icon("fas", "bolt")
+    %p.text-lg.mb-1.text-center Prepare your Node
+    %p.text-sm.font-light.text-center Get your Bitcoin Lightning Network node running. Have at least one channel open. Check if your node can be found on the gossip network.
+    .flex.items-center.justify-center.mb-2.mt-6
+      .flex-none.mr-2= link_to "Check your node", auto_verify_signature_path, class: secondary_button, title: "Check your node"
+    -# %p.text-sm.font-light.text-center.mt-6 Alternatively, you can sign in with a signed message online.
+    -# .flex.items-center.justify-center.mb-2.mt-6
+    -#   .flex-none.mr-2= link_to "Sign in online", "https://lightningnetwork.plus/ln_sign_in", class: secondary_button, title: "Sign in online"
+  .col-1.bg-purple-700.text-white.p-6.rounded-xl.shadow-lg
+    %p.text-4xl.mb-4.text-center= icon("fas", "coins")
+    %p.text-lg.mb-1.text-center Apply to a Swap
+    %p.text-sm.font-light.text-center Make sure you have enough SATs on your Bitcoin node. Join an existing liquidity swap to get started.
+    .flex.items-center.justify-center.mb-2.mt-6
+      .flex-none.mr-2= link_to "Swaps for you", for_me_path, class: secondary_button, title: "Swaps for you"
+    -# %p.text-sm.font-light.text-center.mt-6 Alternatively, start a new Swap if you can't find any that fits your needs.
+    -# .flex.items-center.justify-center.mb-2.mt-6
+    -#   .flex-none.mr-2= link_to "Create swap", new_swap_path, class: secondary_button, title: "Create swap"
+  .col-1.bg-pink-700.text-white.p-6.rounded-xl.shadow-lg
+    %p.text-4xl.mb-4.text-center= icon("fas", "clock")
+    %p.text-lg.mb-1.text-center Open channel
+    %p.text-sm.font-light.text-center When the Swap is full with participants you can open your channel using the instructions in this app.
+    .flex.items-center.justify-center.mb-2.mt-6
+      .flex-none.mr-2= link_to "View your swaps", my_swaps_path, class: secondary_button, title: "View your swaps"
+  .col-1.bg-green-700.text-white.p-6.rounded-xl.shadow-lg
+    %p.text-4xl.mb-4.text-center= icon("fas", "smile")
+    %p.text-lg.mb-1.text-center Rate participants
+    %p.text-sm.font-light.text-center Enjoy your new incoming channel and rate your experience.
+    .flex.items-center.justify-center.mb-2.mt-6
+      .flex-none.mr-2= link_to "View to-dos", to_dos_path, class: secondary_button, title: "View your to-dos"

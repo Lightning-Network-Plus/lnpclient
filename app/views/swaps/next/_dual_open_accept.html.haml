@@ -1,0 +1,22 @@
+%p
+- if @opening_to_participant["application_status"] == "opening"
+  %span= icon("fas", "hourglass-half", class: "mr-2")
+  %strong Please wait until B initiates the channel invitation.
+  %p.mt-2 Once Node B sent the invitation on BOS, you will be provided with instructions, so you can accept it.
+- else # opening_to_participant application status: completed
+  %span= icon("fas", "check", class: "mr-2")
+  %strong Node B sent you the invitation on BOS.
+  %p.mt-2
+    %span Use the following command in
+    %span= link_to "BOS (Balance of Satoshi)", "https://github.com/alexbosworth/balanceofsatoshis", class: light_button
+    %span to accept the invitation:
+    %p.mt-2.bg-purple-50.dark:bg-gray-900.p-3.rounded.select-all.break-all.text-sm bos open-balanced-channel
+    .my-2
+      %button{"data-controller" => "clipboard", "data-clipboard-text" => "bos open-balanced-channel", class: positive_button + "mr-2"}= icon("fa", "copy", class: "mr-2") + "Copy"
+  %hr.my-6{style: "border-top: 1px dotted #8B5CF6"}
+  %p Click the button below after you accepted the channel invitation.    
+  .mt-4.mb-4
+    = form_tag(subscription_completed_path, method: "post", id: "subscription-completed-form") do
+      = hidden_field_tag :id, @swap["id"]
+      = button_tag type: "submit", class: positive_button, id: "completed-button", title: "Completed" do
+        = icon("fas", "check", class: "mr-2") + "Channel Opening Started"

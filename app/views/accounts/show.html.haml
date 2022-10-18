@@ -1,0 +1,62 @@
+- if @account.present?
+  .bg-gray-100.dark:bg-black.rounded-t-lg.rounded-b-2xl.p-8.shadow-lg
+    .flex
+      - if @account["avatar"].present?
+        .flex-none.mt-1= image_tag(@account["avatar"], class: "rounded-full h-8 w-8 mr-4", alt: "avatar")
+      .flex-none
+        %h1.text-3xl.font-light.mb-4 Your Account Info
+      .flex-grow
+      .flex-none.mt-2
+        %p.mr-2= link_to (icon("fas", "user-edit", class: "mr-2") + "Edit Account"), edit_account_path, class: positive_button + "mb-2 py-2"
+      .flex-none.mt-2
+        %p= link_to (icon("fas", "bolt", class: "mr-2") + "View Profile Online"), "https://lightningnetwork.plus/nodes/" + @account["pubkey"], class: positive_button + "mb-2 py-2", target: :_blank
+
+    %p.font-bold.mt-2= icon("fas", "bolt", class: "mr-2") + "Pubkey"
+    %p= @account["pubkey"]
+
+    %hr.my-4{style: "border-top: 1px dotted #8B5CF6"}
+    %p.font-bold= icon("fas", "envelope", class: "mr-2") + "Email"
+    %p= @account["email"]
+
+    %hr.my-4{style: "border-top: 1px dotted #8B5CF6"}
+    %p.font-bold= icon("fas", "bell", class: "mr-2") + "Send Notifications"
+    - if @account["send_notifications"] == true
+      %p.text-emerald-700= icon("fas", "check-circle", class: "mr-2") + "Enabled"
+    - else
+      %p.text-red-700= icon("fas", "times-circle", class: "mr-2") + "Disabled"
+
+    %hr.my-4{style: "border-top: 1px dotted #8B5CF6"}
+    %p.font-bold= icon("fas", "mask", class: "mr-2") + "Can Connect to Tor Nodes"
+    - if @account["can_connect_to_tor"] == true
+      %p.text-emerald-700= icon("fas", "check-circle", class: "mr-2") + "Yes"
+    - else
+      %p.text-red-700= icon("fas", "times-circle", class: "mr-2") + "No"
+
+    %hr.my-4{style: "border-top: 1px dotted #8B5CF6"}
+    %p.font-bold= icon("fas", "user-circle", class: "mr-2") + "Name"
+    %p= @account["name"]
+
+    %hr.my-4{style: "border-top: 1px dotted #8B5CF6"}
+    %p.font-bold= icon("fas", "globe", class: "mr-2") + "Website"
+    - if @account["website"].present?
+      %p= link_to @account["website"], @account["website"], class: light_button
+    - else
+      %p.text-slate-500= icon("fas", "exclamation-circle", class: "mr-2") + "Not set"
+
+    %hr.my-4{style: "border-top: 1px dotted #8B5CF6"}
+    %p.font-bold= icon("fab", "twitter", class: "mr-2") + "Twitter"
+    - if @account["twitter"].present?
+      %p= link_to @account["twitter"], @account["twitter"], class: light_button
+    - else
+      %p.text-slate-500= icon("fas", "exclamation-circle", class: "mr-2") + "Not set"
+
+    %hr.my-4{style: "border-top: 1px dotted #8B5CF6"}
+    %p.font-bold= icon("fas", "align-justify", class: "mr-2") + "Short Bio"
+    - if @account["bio"].present?
+      %p= @account["bio"]
+    - else
+      %p.text-slate-500= icon("fas", "exclamation-circle", class: "mr-2") + "Not set"
+- else
+  %h1.text-3xl.font-light.mb-4 Your Account Info
+  .bg-gray-100.dark:bg-black.rounded-t-lg.rounded-b-2xl.p-8.shadow-lg
+    = render "shared/node_not_found"

@@ -1,0 +1,17 @@
+.bg-gray-100.dark:bg-black.rounded-t-lg.rounded-b-2xl.p-8.shadow-lg.max-w-2xl.mx-auto
+  %h1.text-3xl.font-bold.mb-4 About LN+
+  .col-1.mb-4
+    %p.mt-2.text-xl Lightning Network Plus (LN+) is a free web app that helps the users of the Bitcoin Lightning Network to team up and create liquidity swaps (aka Rings of Fire). The app walks you through each step to make it an easy process. You will get incoming liquidity, and will be able to grow your channel count and capacity twice as fast, without any extra costs.
+    %p.mt-4.font-bold Note: This is an offline version of the LN+ app.
+    %p.mt-4 Without LN+ when somebody creates a Bitcoin Lightning Network node, they can open channels to other nodes to create outgoing liquidity and thus they can spend SATs to pay for invoices. However, they would not be able to receive bitcoins on lightning, until they have spent some bitcoins on their channels. In order to receive bitcoins on LN, they will need another node to open a channel to them. Such an incoming channel will have incoming capacity, which allows for receiving funds.
+    %p.mt-4 LN+ helps node operators to collaboratively open channels to each other. We help 3 to 5 users connect to each other in a circle (or 2 users directly). This way each participant of such a liquidity swap will have incoming and outgoing capacity to each participant by doing just a single channel open, and nobody will have duplicated channels between each other.
+    %p.mt-4 By having more channels and capacity you will increase routing fees earned and ensure your node is highly reliable for both sending and receiving payments.
+    %p.mt-4 Liquidity swaps also help people of the world to get onboarded to lightning easier, in order to give them financial sovereignty and dignity.
+    %p.mt-4 Learn more about the features offered:
+    %p.mt-4= link_to "Features", features_path, class: positive_button + "mr-2", alt: "Learn More About Features"
+    %p.mt-6 Let's stay in touch:
+    %p.mt-4
+      %span= link_to "Contact", "https://lightningnetwork.plus/contact", class: positive_button + "mr-2", alt: "Send Us an Email", target: :_blank
+      %span= link_to "Twitter", "https://twitter.com/BTC_LN", class: positive_button, alt: "Follow Us", target: :_blank
+  
+  %small.mt-8.text-slate-500 Environment: #{ENV["RAILS_ENVIRONMENT"]}

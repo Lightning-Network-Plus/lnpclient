@@ -1,0 +1,12 @@
+%p.mb-6
+  %span= link_to icon("fas", "arrow-circle-left", class: "mr-2") + "Back to Comments", "/comments/" + @swap_id.to_s, class: light_button
+  %span= link_to (icon("fas", "globe", class: "ml-4 mr-2") + "View Swap and Comments Online"), "https://lightningnetwork.plus/swaps/" + @swap_id.to_s, class: light_button, target: :_blank
+.relative.min-w-0.w-full
+  .bg-violet-700.shadow-md.py-4.px-6.text-white
+    %p.text-xl.font-bold= "Add Comment to Swap ID: " + @swap_id.to_s
+.bg-white.dark:bg-black.shadow-md.pt-6.pb-8.px-6.rounded-br-2xl
+  = form_tag(comment_path, method: "post", id: "comment-form") do
+    = text_area_tag :body, nil, placeholder: "Your comment", class: field + "w-full border border-purple-200 bg-purple-50 dark:border-gray-900"
+    = hidden_field_tag :swap_id, @swap_id
+    = hidden_field_tag :pubkey, @pubkey
+    = submit_tag "Save Comment", class: positive_button

@@ -1,0 +1,6 @@
+%p.mt-6= icon("fas", "coins", class: "mr-2") + "Recommended Fee in SAT/vB"
+.flex.mt-2
+  - @fee_data = JSON.parse(Net::HTTP.get(URI("https://mempool.space/api/v1/fees/recommended")))
+  .flex-none.bg-purple-50.dark:bg-gray-900.rounded.py-2.px-3.mr-2.font-bold= "Normal: " + @fee_data["hourFee"].to_s
+  .flex-none.bg-purple-50.dark:bg-gray-900.rounded.py-2.px-3.mr-2= "Fast: " + @fee_data["halfHourFee"].to_s
+  .flex-node.bg-purple-50.dark:bg-gray-900.rounded.py-2.px-3.mr-2= "Fastest: " + @fee_data["fastestFee"].to_s

@@ -1,0 +1,14 @@
+.flex.flex-wrap.text-white{class: "bg-#{color}"}
+  %p.flex-none.py-4.text-lg.px-6
+    %span Node
+    %span.bg-white.rounded-full.font-bold.ml-1{class: "py-0.5 px-2 text-#{color}"}= identifier
+  .flex-grow
+  - case status
+  - when "pending"
+    %p.flex-none.py-4.px-6.font-light= icon("fas", "clock", class: "mr-2") + "Waiting for Applications"
+  - when "opening"
+    %p.flex-none.py-4.px-6.animate-pulse.font-light= icon("fas", "clock", class: "mr-2") + "Opening Channel"
+  - when "completed"
+    %p.flex-none.py-4.px-6.font-light= icon("fas", "check", class: "mr-2") + "Channel Open Reported"
+  - else
+    %p.flex-none.py-4.px-6.font-light= icon("fas", "bug", class: "mr-2") + "Error"

@@ -1,0 +1,45 @@
+- if @swap_is_dual
+  %p.text-2xl.font-bold.mb-1= icon("fas", "glass-cheers", class: "mr-2") + "Congratulations!"
+  %p The Dual Funded channel has been completed.
+- else
+  %p.text-2xl.font-bold.mb-1= icon("fas", "glass-cheers", class: "mr-2") + "Congratulations!"
+  %p The Swap has been completed
+%hr.my-6{style: "border-top: 1px dotted #8B5CF6"}
+- if @participant["rating_given"].present? # user rated
+  - if @participant["rating_given"] == "positive"
+    %p.font-bold.mb-2= icon("fas", "smile", class: "text-emerald-700 mr-2") + "You rated Happy!"
+    %p Change your rating if necessary:
+    .mt-4.mb-2
+      = form_tag(ratings_path, method: "post", id: "rating-form") do
+        = hidden_field_tag :id, @swap["id"]
+        = hidden_field_tag :rating, "negative"
+        = button_tag type: "submit", class: red_button, id: "rate-button", title: "Sad" do
+          = icon("fas", "frown", class: "mr-2") + "Sad"
+  - else
+    %p.font-bold.mb-2= icon("fas", "frown", class: "text-red-700 mr-2") + "You rated Sad!"
+    %p Change your rating if necessary:
+    .mt-4.mb-2
+      = form_tag(ratings_path, method: "post", id: "rating-form") do
+        = hidden_field_tag :id, @swap["id"]
+        = hidden_field_tag :rating, "positive"
+        = button_tag type: "submit", class: green_button, id: "rate-button", title: "Happy" do
+          = icon("fas", "smile", class: "mr-2") + "Happy"
+- else # user has not rated
+  %p
+    %span Has
+    %strong Node #{@opening_to_participant_identifier}
+    %span fulfilled their commitment of opening a channel to you within 48 hours after channel opening started? Rate your experience with them:
+  .mt-4.mb-2
+    .flex
+      .flex-none.mr-2
+        = form_tag(ratings_path, method: "post", id: "rating-form") do
+          = hidden_field_tag :id, @swap["id"]
+          = hidden_field_tag :rating, "positive"
+          = button_tag type: "submit", class: green_button, id: "rate-button", title: "Happy" do
+            = icon("fas", "smile", class: "mr-2") + "Happy"
+      .flex-none
+        = form_tag(ratings_path, method: "post", id: "rating-form") do
+          = hidden_field_tag :id, @swap["id"]
+          = hidden_field_tag :rating, "negative"
+          = button_tag type: "submit", class: red_button, id: "rate-button", title: "Sad" do
+            = icon("fas", "frown", class: "mr-2") + "Sad"

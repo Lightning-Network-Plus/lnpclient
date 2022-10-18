@@ -1,0 +1,5 @@
+- swap_link = "/comments/" + @swap["id"].to_s
+- if @swap["comments_count"].present? && @swap["comments_count"] > 0
+  %p= link_to (icon("fas", "comment", class: "mr-2") + "View " + pluralize(@swap["comments_count"], 'Comment')), swap_link, class: positive_button
+- else
+  %p= link_to (icon("fas", "comment", class: "mr-2") + "Post Comment"), swap_link, class: positive_button

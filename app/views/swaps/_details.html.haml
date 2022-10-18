@@ -1,0 +1,88 @@
+.relative.min-w-0.w-full
+  .overflow-hidden{class: "bg-#{@status_color}"}
+    %picture
+      %source{srcset: @image_webp, alt: @image_alt, width: "800", height: "427", type: "image/webp"}
+      %source{srcset: @image_jpg, alt: @image_alt, width: "800", height: "427", type: "image/jpeg"}
+      = image_tag @image_jpg, alt: @image_alt, class: "object-cover w-full h-full", width: "800", height: "427"
+    .shadow-md.px-6.py-4.text-white{class: "bg-#{@status_color}"}
+      .flex
+        .flex-none
+          %p Status
+          %p.text-2xl.font-bold= @humanized_swap_status
+        .flex-grow
+        = image_tag cdn_static(@shape + "-shape.svg"), alt: @shape.capitalize + " Shape Diagram", width: "56", height: "56"
+  .bg-white.dark:bg-black.rounded-bl-2xl.shadow-md.px-6.pt-6.pb-8
+    - if @swap["private"]
+      .bg-yellow-100.dark:bg-yellow-900.rounded.px-4.py-2.mb-4
+        - if @swap_is_dual
+          %p.text-2xl.font-bold Private Dual Funded Channel
+          %p.font-light Joining this agreement requires a pin code available from the creator.
+        - else
+          %p.text-2xl.font-bold Private Swap
+          %p.font-light Joining this swap requires a pin code available from the swap creator.
+    - if @swap_is_dual
+      %p Total Dual Funded Capacity
+      %p.text-2xl.font-bold= number_with_delimiter(@swap["capacity_sats"]*2, delimeter: ",").to_s + " SAT"
+      %p.font-light= (@swap["capacity_sats"]*2.to_f/1000000).to_s + "M SAT / " + (@swap["capacity_sats"]*2.to_f/100000000).to_s + " BTC"
+      %p.mt-4 Funding Amount
+      %p.text-2xl.font-bold= number_with_delimiter(@swap["capacity_sats"], delimeter: ",").to_s + " SAT"
+      %p.font-light= (@swap["capacity_sats"].to_f/1000000).to_s + "M SAT / " + (@swap["capacity_sats"].to_f/100000000).to_s + " BTC"
+    - else
+      %p= @shape.capitalize + " Capacity"
+      %p.text-2xl.font-bold= number_with_delimiter(@swap["capacity_sats"], delimeter: ",").to_s + " SAT"
+      %p.font-light= (@swap["capacity_sats"].to_f/1000000).to_s + "M SAT / " + (@swap["capacity_sats"].to_f/100000000).to_s + " BTC"
+    %p.mt-4 Spaces Available
+    - if @swap["participant_waiting_for_count"] == 0
+      %p.text-2xl.font-bold None
+      %p.font-light All #{@participant_max_count.to_s} spaces are filled
+    - else
+      %p.text-2xl.font-bold= pluralize(@swap["participant_waiting_for_count"], "participant")
+      %p.font-light= "Out of total of " + @participant_max_count.to_s
+    %p.mt-4 Channel Duration
+    %p.text-2xl.font-bold= pluralize(@swap["duration_months"].to_s, "month") + " or more"
+    - if @swap["starts"].present?
+      %p.font-light
+        %span Open at least till:
+        %span= (@swap["starts"].to_datetime + @swap["duration_months"].months).strftime("%B %d, %Y")
+    - if @swap_status == "opening"
+      %p.mt-4
+        %span Channel Opens Started
+      - if @swap["starts"].present?
+        %p.text-2xl.font-bold= time_ago_in_words(@swap["starts"].to_datetime) + " ago"
+        %p.font-light
+          - if (@swap["starts"].to_datetime + 48.hours).utc > Time.current.utc
+            %span Time left:
+            %span= humanize_seconds((@swap["starts"].to_datetime + 48.hours).utc - Time.current.utc)
+          - else
+            %span 48 hour deadline passed
+      - else
+        %p.text-2xl.font-bold Error
+
+    - if @swap["participant_min_channels_count"].present? || @swap["participant_min_capacity_sats"].present? || @swap["description"].present?
+      .p-4.rounded.bg-gray-100.dark:bg-gray-900.mt-4
+        %p Participant Restrictions
+        %p.font-light As reported in your profile, which updates every hour.
+        - if @swap["participant_min_channels_count"].present?
+          %p.mt-4 Channels
+          %p.text-2xl.font-bold= pluralize(@swap["participant_min_channels_count"].to_s, "channel")
+          %p.font-light Minimum number of channels
+        - if @swap["participant_min_capacity_sats"].present?
+          %p.mt-4 Capacity
+          %p.text-2xl.font-bold= number_with_delimiter(@swap["participant_min_capacity_sats"], delimeter: ",").to_s + " SAT"
+          %p.font-light Minimum total channel capacity
+        - if @swap["description"].present?
+          %p.mt-4 Additional Rules
+          .font-light
+            = simple_format(@swap["description"])
+    %p.mt-4 Description
+    - if @swap_is_dual
+      %p.font-light This is a Bitcoin Lightning Network dual funded channel agreement, designed to help LN node operators generate both outgoing and incoming liquidity, increase connectivity and decentralization of the network.
+    - else
+      %p.font-light This is a Bitcoin Lightning Network liquidity swap agreement, designed to help LN node operators generate both outgoing and incoming liquidity, increase connectivity and decentralization of the network.
+    %p.mt-2
+      %strong Agreement ID: #{@swap["id"].to_s}
+      %span.font-light was created on #{@swap["created_at"].to_datetime.strftime("%B %d, %Y")}.
+    -# - if can_manage_swap(swap)
+    -#   .mt-8.mb-4
+    -#     = link_to (icon("fas", "edit", class: "mr-2") + "Edit"), edit_swap_path(swap), class: positive_button + " mr-2"
+    -#     = link_to (icon("fas", "trash", class: "mr-2") + "Delete"), swap, method: :delete, data: { confirm: 'Are you sure?' }, class: positive_button

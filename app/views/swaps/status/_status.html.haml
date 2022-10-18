@@ -1,0 +1,38 @@
+.status.my-4
+  - @swap_identifiers.each do |swap_identifier| # A, B, C...
+    - participant = find_participant(@participants, swap_identifier)
+    - next_identifier = get_next_identifier(swap_identifier, @participant_max_count)
+    - previous_identifier = previous_identifier(swap_identifier, @participant_max_count)
+    - from_alias = swap_identifier # default value
+    - to_alias = next_identifier # default value
+    .mb-4.bg-gray-50.dark:bg-black.shadow-lg
+      - if participant.present?
+        - from_alias = participant["alias"]
+        - to_participant = find_participant(@participants, next_identifier)
+        - to_alias = to_participant["alias"] if to_participant.present?
+        = render partial: "swaps/status/header", locals: { identifier: swap_identifier, color: status_color(participant["application_status"]), status: participant["application_status"] }
+        = render partial: "swaps/status/participant", locals: { participant: participant }
+      - else
+        = render partial: "swaps/status/header", locals: { identifier: swap_identifier, color: status_color("pending"), status: "pending" }
+        - from_participant = find_participant(@participants, previous_identifier)
+        - if from_participant.present? # first untaken spot
+          - unless @participant.present? # untaken spot, if user isn't in swap
+            - if @can_apply # untaken spot, user isn't in swap, user can apply
+              - if @connected_pubkeys.size.zero? # user doesn't have channels to participants yet
+                - if @swap_is_dual
+                  = render partial: "swaps/status/dual_apply", locals: { next_identifier: next_identifier, previous_identifier: previous_identifier }
+                - else #shape
+                  = render partial: "swaps/status/shape_apply", locals: { next_identifier: next_identifier, previous_identifier: previous_identifier }
+              - else # user already has at least one channel to participants
+                - if @connected_pubkeys.size == 1
+                  .p-6 Sorry, can't apply here. Your node already has a channel with a swap participant.
+                - else
+                  .p-6 Sorry, can't apply here. Your node already has #{pluralize(@connected_pubkeys, "channel")} with swap participants.
+            - else # untaken spot, user isn't in swap, user can't apply
+              .p-6 Sorry, can't apply here. Your node capacity, number of channels, or on-chain balance too low to apply.
+          - else # untaken spot, if user is in swap elsewhere
+            .p-6 Waiting for application.
+        - else # further untaken spots
+          .p-6= "This space will open once Node " + previous_identifier + " is claimed."
+    .pb-4.text-center
+      %p= icon("fas", "arrow-alt-circle-down", class: "mr-2") + "Channel from " + from_alias + " to " + to_alias

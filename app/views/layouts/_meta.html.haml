@@ -1,0 +1,26 @@
+- if @meta.present?
+  
+  - @meta[:title].nil? ? @metatitle = "LightningNetwork+ Offline Version" : @metatitle = @meta[:title] + " • LightningNetwork+ Offline Version"
+  %title= @metatitle
+  %meta{content: @metatitle, :name => "title"}/
+  %meta{content: @metatitle, :property => "og:title"}/
+  %meta{content: @metatitle, :name => "twitter:title"}/
+
+  - @meta[:description].nil? ? @metadescription = "Bitcoin Lightning Network Liquidity Swap Organizer Offline Version" : @metadescription = @meta[:description]
+  %meta{content: @metadescription, :name => "description"}/
+  %meta{content: @metadescription, :property => "og:description"}/
+  %meta{content: @metadescription, :name => "twitter:description"}/
+  
+  - @meta[:image].nil? ? @metaimage = cdn_static("neon-metaimage.jpg") : @metaimage = @meta[:image]
+  %meta{content: @metaimage, :property => "og:image"}/
+  %meta{content: @metaimage, :name => "twitter:image"}/
+
+  %meta{content: "website", :property => "og:type"}/
+  -# %meta{content: request.original_url, :property => "og:url"}/
+  %meta{content: "en_US", :property => "og:locale"}/
+  %meta{content: "LightningNetwork+", :property => "og:site_name"}/
+  %meta{content: "summary_large_image", :name => "twitter:card"}/
+  %meta{content: request.original_url, :name => "twitter:url"}/
+  %meta{content: "@BTC_LN", :name => "twitter:site"}/
+
+  = favicon_link_tag cdn_static("favicon.png")

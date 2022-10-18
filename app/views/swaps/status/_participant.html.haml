@@ -1,0 +1,27 @@
+.px-6.pt-4.pb-6
+  .flex
+    - if participant["avatar"].present?
+      .flex-none= link_to (image_tag(participant["avatar"], class: "rounded-full h-8 w-8 mt-1 mr-2", alt: participant["alias"])), "https://lightningnetwork.plus/nodes/" + participant["pubkey"], alt: participant["alias"], target: :_blank
+    - else
+      .flex-none.text-3xl.text-violet-400.mr-2.align-middle= link_to (icon("fas", "user-circle")), "https://lightningnetwork.plus/nodes/" + participant["pubkey"], alt: participant["alias"], target: :_blank
+    .flex-none.mt-1.text-lg.text-violet-700.mr-2.font-bold= link_to participant["alias"], "https://lightningnetwork.plus/nodes/" + participant["pubkey"], target: :_blank
+    - if participant["last_seen_at"].present? && participant["last_seen_at"].to_datetime > 5.minutes.ago
+      .flex-none.animate-pulse.text-emerald-700.mr-1.text-lg.font-bold.pt-1 ●  
+    - if participant["cancelled"] && !participant["banned"]
+      .flex-none.bg-yellow-300.text-dark.py-1.px-2.mr-1.rounded.ml-2= icon("fas", "exclamation-circle", class: "mr-2") + "Cancelled User"
+    - if participant["banned"]
+      .flex-none.animate-pulse.bg-red-700.text-white.py-1.px-2.mr-1.rounded.ml-2= icon("fas", "exclamation-circle", class: "mr-2") + "Banned User"
+    .flex-grow
+    .flex-none.ml-10.mt-1
+      - if participant["rating_received"] == "positive"
+        %span Rated
+        %span.text-lg.text-emerald-700.ml-1= icon("fas","smile")
+      - elsif participant["rating_received"] == "negative"
+        %span Rated negatively
+        %span.text-lg.text-red-700.ml-1= icon("fas","frown")
+  - if participant["last_seen_at"].present?
+    %p.mt-2= "Applied " + time_ago_in_words(participant["applied_at"].to_datetime) + " ago and last seen " + time_ago_in_words(participant["last_seen_at"].to_datetime) + " ago."
+  - else
+    %p.mt-2= "Applied " + time_ago_in_words(participant["applied_at"].to_datetime) + " ago."
+  %p= "Has " + humanize_capacity(participant["capacity_sats"]) + " capacity in " + participant["channels_count"].to_s + " channels."
+  %p= humanize_reputation(participant)

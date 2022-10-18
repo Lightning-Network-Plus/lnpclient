@@ -1,0 +1,42 @@
+.bg-violet-700.shadow-md.py-4.px-6.text-white.rounded-tr-2xl
+  %p.text-xl What to Do Next?
+.bg-white.dark:bg-black.shadow-md.p-6
+  - case @swap_status
+  - when "pending"
+    - unless @participant.present? # if user isn't in swap
+      - if @can_apply # user can apply
+        - if @connected_pubkeys.size.zero? # user doesn't have channels to participants yet
+          - if @swap_is_dual
+            = render "swaps/next/dual_apply"
+          - else # shape
+            = render "swaps/next/shape_apply"
+        - else # user already has at least one channel to participants
+          = render "swaps/next/already_match"
+      - else # user can't apply
+        = render "swaps/next/no_swap_match"
+    - else # if user is in swap
+      = render "swaps/next/wait_for_app"
+  - when "opening"
+    - if @participant.present? # user is in swap
+      - if @participant["application_status"] == "opening"
+        - unless @opening_to_participant_channel_exists
+          - unless @swap_is_dual # swap is a shape
+            - if @peering_necessary
+              = render "swaps/next/peer"
+            = render "swaps/next/shape_open"
+          - else # swap is a dual
+            - if @participant["participant_identifier"] == "A"
+              = render partial: "swaps/next/dual_open_accept", locals: { opening_to_pubkey: @opening_to_participant["pubkey"] } # accepts open
+            - else # B
+              = render partial: "swaps/next/dual_open_init", locals: { opening_to_pubkey: @opening_to_participant["pubkey"] } # initiates open
+        - else # channel to next participant is already open
+          = render "swaps/next/already_open"
+      - else # application status is completed
+        = render "swaps/next/wait_for_open"
+    - else # user is not in swap
+      = render "swaps/next/full"
+  - when "completed"
+    - if @participant.present? # user is in swap
+      = render "swaps/next/congrats"
+    - else # user is not in swap
+      = render "swaps/next/full"

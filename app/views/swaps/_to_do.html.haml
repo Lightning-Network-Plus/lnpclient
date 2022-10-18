@@ -1,0 +1,35 @@
+- swap_id = swap["id"]
+- swap_capacity = swap["capacity_sats"]
+- deadline = swap["deadline"].to_datetime.utc
+- swap_link = "/swaps/" + swap["id"].to_s
+- if swap["outgoing_peer_clearnet_address"].present?
+  - address = swap["outgoing_peer_clearnet_address"]
+- else
+  - address = swap["outgoing_peer_tor_address"]
+.bg-pink-700.shadow-md.py-4.px-6.text-white.rounded-tr-2xl
+  %p.text-xl= swap["instruction"].titleize + " in Swap ID: " + swap["id"].to_s
+.bg-white.dark:bg-black.shadow-md.p-6.mb-6
+  .flex.mb-6
+    .flex-none= link_to (icon("fas", "eye", class: "mr-2") + "Swap Details" ), swap_link, class: positive_button
+    .flex-grow
+    .flex-none= link_to (icon("fas", "globe", class: "mr-2") + "Swap Online"), swap["web_url"], class: light_button, target: :_blank
+    .flex-none= link_to (icon("fas", "bolt", class: "ml-4 mr-2") + "Peer Profile"), "https://lightningnetwork.plus/nodes/" + swap["outgoing_peer_pubkey"], class: light_button, target: :_blank
+  - if swap["outgoing_peer_tor_address"].present?
+    %p.mt-5= icon("fas", "bolt", class: "mr-2") + "TOR Address"
+    .flex.mt-2
+      %p.bg-violet-50.dark:bg-gray-900.p-3.rounded.select-all.break-all.text-sm= swap["outgoing_peer_tor_address"]
+
+  - if swap["outgoing_peer_clearnet_address"].present?
+    %p.mt-5= icon("fas", "bolt", class: "mr-2") + "Clearnet Address"
+    .flex.mt-2
+      %p.bg-violet-50.dark:bg-gray-900.p-3.rounded.select-all.break-all.text-sm= swap["outgoing_peer_clearnet_address"]
+
+  %p.mt-5= icon("fab", "bitcoin", class: "mr-2") + "Channel Capacity in SAT"
+  .flex.mt-2
+    %p.bg-violet-50.dark:bg-gray-900.p-3.rounded.select-all.break-all.text-sm= swap_capacity.to_s
+  
+  %p.mt-5= icon("fas", "clock", class: "mr-2") + "Deadline"
+  - if deadline > Time.current.utc
+    %p.mt-2= "Open channel within " + humanize_seconds(deadline - Time.current.utc)
+  - else
+    %p.mt-2= "Missed by " + humanize_seconds(Time.current.utc - deadline).to_s + " ago. Please open channel urgently."

@@ -1,0 +1,31 @@
+.bg-gradient-to-b.py-4.lg:py-6{class: gradient_class}
+  .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8
+    .items-center.flex
+      - cache("nav_desktop_static_" + nav_button_class, expires_in: 1.day) do
+        .flex-shrink-0.h-8.w-8= link_to (image_tag cdn_static("lnpluslogo.svg"), alt: "LN+ Logo", width: "32", height: "32"), root_path
+        .flex-shrink-0.ml-2.text-lg.text-white
+          = link_to root_path do
+            %span.font-normal.text-decoration-none.-mr-px lightning
+            %span.font-bold.text-decoration-none network+
+        .flex.px-4
+          .flex-none.text-white.hidden.lg:block= link_to "Latest Swaps", swaps_path, class: nav_button_class, title: "Latest Swaps"
+          .flex-none.text-white.hidden.lg:block= link_to "Open For Me", for_me_path, class: nav_button_class + "ml-2", title: "Swaps for Me"
+          .flex-none.text-white.hidden.lg:block= link_to "My Swaps", my_swaps_path, class: nav_button_class + "ml-2", title: "My Swaps"
+          .flex-none.text-white.hidden.lg:block= link_to "To Dos", to_dos_path, class: nav_button_class + "ml-2", title: "My To Dos"
+          -# .flex-none.text-white.hidden.lg:block= link_to "Verify Sgn", auto_verify_signature_path, class: "ml-2", title: "Temporary"
+        .flex-grow
+        .flex.px-4
+          .flex-none.hidden.lg:block= link_to "Support", "#", class: nav_button_small_class, title: "Questions & Answers"
+        -# .flex-none.mr-2.text-white.hidden.lg:block= link_to (icon("fas", "bell", class: "mr-1 animate-swing") + @notifications_count), notifications_path
+        .flex-none.mr-2.text-white.hidden.lg:block= link_to icon("fas", "bell", class: "mr-1"), notifications_path
+        .flex-none.text-white.text-2xl.hidden.lg:block= link_to icon("fas", "user-circle", class: "ml-2").html_safe, account_path
+      %div{"data-target" => "hello.bars"}
+        .flex
+          -# %button.lg:hidden.flex-none.mr-2{ class: nav_button_class }
+          -#   = link_to (icon("fas", "bell", class: "mr-1 animate-swing") + @notifications_count), notifications_path
+          %button.lg:hidden.flex-none.mr-2{ class: nav_button_class }
+            = link_to icon("fas", "bell", class: "mr-1"), notifications_path
+          %button.flex-none.text-lg.lg:hidden{"data-action" => "hello#show", class: nav_button_class }
+            = icon('fas', 'bars')
+      %div.hidden{"data-target" => "hello.times"}  
+        %button.text-lg{"data-action" => "hello#hide", class: nav_button_class }= icon('fas', 'times')

@@ -1,0 +1,7 @@
+%p
+  %strong Note:
+  %span You already have channels with participants of this swap:
+%ul.list-disc.list-inside.mb-2
+  - @connected_pubkeys.each do |participant|
+    %li Node #{participant["participant_identifier"]}: #{participant["alias"]}
+= render "swaps/next/find"

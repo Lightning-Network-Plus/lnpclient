@@ -1,0 +1,60 @@
+%p
+  %span Open a channel
+  - if (@swap["starts"].to_datetime + 48.hours) > Time.current
+    %span= "within " + humanize_seconds((@swap["starts"].to_datetime + 48.hours).utc - Time.current.utc)
+  - else
+    %span as soon as possible as the 48 hour deadline has passed,
+  %span to #{@opening_to_participant["alias"]}. Click the button below to let LN+ open the channel for you. Channel opening can take up to 60 seconds. The page will reload when the operation is complete.
+- if !@opening_to_participant["address_1"].include?(".onion:")
+  - address = @opening_to_participant["address_1"]
+- elsif @opening_to_participant["address_2"].present? && !@opening_to_participant["address_2"].include?(".onion:")
+  - address = @opening_to_participant["address_2"]
+- else
+  - address = @opening_to_participant["address_1"]
+%p.my-4
+  = form_tag(channel_open_path, method: "post", id: "channel-form") do
+    = hidden_field_tag :id, @swap["id"]
+    = hidden_field_tag :address, address
+    = hidden_field_tag :capacity, @swap["capacity_sats"]
+    = button_tag type: "submit", class: positive_button, id: "channel-open-button", title: "Open Channel" do
+      = icon("fas", "bolt", class: "mr-2") + "Open Channel"
+    #processing
+
+:javascript
+  // Campaign Form Submit Button changes on click
+  document.getElementById("channel-open-button").onclick = function() {buttonChange()};
+  function buttonChange() {
+    document.getElementById("processing").innerHTML = "<p><i class='fas fa-spinner animate-spin mr-2'></i><strong>Processing, please wait...</strong></p>";
+    document.getElementById("channel-open-button").style.display = "none";
+  }
+
+%hr.my-6{style: "border-top: 1px dotted #8B5CF6"}
+%p.my-4 You can open the channel manually with the following information:
+- [@opening_to_participant["address_1"], @opening_to_participant["address_2"]].each do |address|
+  - if address.present?
+    %p.mt-5
+      %span= icon("fas", "bolt", class: "mr-2")
+      - if address.include?("onion")
+        %span Tor Lightning Address of
+      - else
+        %span Clearnet Lightning Address of
+      %strong= @opening_to_participant["alias"]
+      .flex.mt-2
+        %p.bg-purple-50.dark:bg-gray-900.p-3.rounded.select-all.break-all.text-sm= address
+      .mt-2.mb-6
+        %button{"data-controller" => "clipboard", "data-clipboard-text" => address, class: positive_button + "mr-2"}= icon("fa", "copy", class: "mr-2") + "Copy"
+%hr.my-6{style: "border-top: 1px dotted #8B5CF6"}
+
+%p.mt-6= icon("fab", "bitcoin", class: "mr-2") + "Capacity in SAT"
+.flex.pr-12.my-2
+  %pre.flex-none.text-sm.bg-purple-50.dark:bg-gray-900.p-3.rounded.select-all.truncate.w-auto.mr-2= @swap["capacity_sats"]
+  %button.flex-none{"data-controller" => "clipboard", "data-clipboard-text" => @swap["capacity_sats"], class: positive_button}= icon("fa", "copy", class: "mr-2") + "Copy"
+= render(partial: "swaps/next/fee")
+%hr.my-6{style: "border-top: 1px dotted #8B5CF6"}
+
+%p Click the button below after you broadcasted the channel opening transaction. No need to wait until the transaction confirms.
+.my-4
+  = form_tag(subscription_completed_path, method: "post", id: "subscription-completed-form") do
+    = hidden_field_tag :id, @swap["id"]
+    = button_tag type: "submit", class: positive_button, id: "completed-button", title: "Completed" do
+      = icon("fas", "check", class: "mr-2") + "Channel Opening Started"

@@ -1,0 +1,43 @@
+.bg-gray-100.dark:bg-black.rounded-t-lg.rounded-b-2xl.p-8.shadow-lg
+  - if @account.present?
+    %h1.text-3xl.font-bold.mb-4 Edit Account
+    = form_tag(accounts_path, method: "post", id: "account-form") do
+      %p.font-bold.mt-4= icon("fas", "envelope", class: "mr-2") + "Email"
+      %p Used for notifications or as an alternate login to LN+ in case Lighting sign in wasn't available. Not public.
+      %p= text_field_tag :email, @account["email"], class: field + "w-96"
+
+      %p.font-bold.mt-4= icon("fas", "bell", class: "mr-2") + "Send Notifications"
+      .flex
+        .flex-none.mr-2= check_box_tag :send_notifications, "1", @account["send_notifications"]
+        .flex-none Do you want notifications sent to your email? Not public.
+
+      %p.font-bold.mt-6= icon("fas", "mask", class: "mr-2") + "Can Connect to Tor Nodes"
+      .flex
+        .flex-none.mr-2= check_box_tag :can_connect_to_tor, "1", @account["can_connect_to_tor"]
+        .flex-none Can connect to tor nodes? Not public.
+      
+      %p.font-bold.mt-6= icon("fas", "user-circle", class: "mr-2") + "Name"
+      %p Shows up on swaps for your application and on comments. Typically the same as the node alias.
+      %p= text_field_tag :name, @account["name"], class: field + "w-96"
+      
+      %p.font-bold.mt-4= icon("fas", "globe", class: "mr-2") + "Website"
+      %p Link to your website.
+      %p= text_field_tag :website, @account["website"], class: field + "w-96", placeholder: "https://..."
+      
+      %p.font-bold.mt-4= icon("fab", "twitter", class: "mr-2") + "Twitter"
+      %p Link to your Twitter profile.
+      %p= text_field_tag :twitter, @account["twitter"], class: field + "w-96", placeholder: "https://twitter.com/@..."
+      
+      %p.font-bold.mt-4= icon("fas", "align-justify", class: "mr-2") + "Bio"
+      %p Short description.
+      %p= text_area_tag :bio, @account["bio"], class: field + "w-96", placeholder: "High availability router node..."
+    
+      %p.font-bold.mt-2.text-slate-500= icon("fas", "upload", class: "mr-2") + "Avatar"
+      %p.text-slate-500
+        %span Sorry, currently uploading images is not supported. Please sign in to the
+        %span= link_to "online version of LN+", "https://lightningnetwork.plus/ln_sign_in", class: light_button, target: :_blank
+        %span to upload.
+      
+      %p.mt-2= submit_tag "Update Account", class: positive_button + "mt-4"
+  - else
+    = render "shared/node_not_found"

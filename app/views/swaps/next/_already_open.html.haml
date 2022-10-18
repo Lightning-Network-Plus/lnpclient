@@ -1,0 +1,11 @@
+%p.mb-4
+  %strong Note:
+  %span You have a channel with
+  %strong #{@opening_to_participant["alias"]}.
+  %span Click the button below to mark the channel opened.
+.mt-4.mb-4
+  = form_tag(subscription_completed_path, method: "post", id: "subscription-completed-form") do
+    = hidden_field_tag :id, @swap["id"]
+    = button_tag type: "submit", class: positive_button, id: "completed-button", title: "Completed" do
+      = icon("fas", "check", class: "mr-2") + "Channel Opening Completed"
+-# %hr.my-6{style: "border-top: 1px dotted #8B5CF6"}

@@ -1,0 +1,9 @@
+%p
+  %span To help 
+  %strong= "Node " + @receiving_from_participant_identifier
+  %span open a channel to you, please open a peer connection to them:
+  %p.mt-4= icon("fas", "bolt", class: "mr-2") + "Lightning Address"
+  .flex.pr-12.my-2
+    %pre.flex-none.text-sm.bg-purple-50.dark:bg-gray-900.p-3.rounded.select-all.truncate.w-full= @receiving_from_participant["address_1"]
+    %button.flex-none{"data-controller" => "clipboard", "data-clipboard-text" => @receiving_from_participant["address_1"], class: copy_button}= icon("fa", "copy")
+  %hr.my-6{style: "border-top: 1px dotted #8B5CF6"}

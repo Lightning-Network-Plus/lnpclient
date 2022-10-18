@@ -1,0 +1,24 @@
+- if @swap["errors"]
+  .mt-6.bg-yellow-100.px-6.py-4.rounded.dark:bg-yellow-900
+    %p= icon("fas", "lock", class: "mr-2") + "Sorry, once the swap is full, only participants of this swap can read or post comments."
+  %p.mt-6
+    %span= link_to icon("fas", "arrow-circle-left", class: "mr-2") + "Back to Swap Details", 'javascript:history.back()', class: light_button
+- else
+  %p.mb-6
+    %span= link_to icon("fas", "arrow-circle-left", class: "mr-2") + "Back to Swap Details", "/swaps/" + @swap["id"].to_s, class: light_button
+    %span= link_to (icon("fas", "globe", class: "ml-4 mr-2") + "View Swap and Comments Online"), "https://lightningnetwork.plus/swaps/" + @swap["id"].to_s, class: light_button, target: :_blank
+  .relative.min-w-0.w-full
+    .bg-violet-700.shadow-md.py-4.px-6.text-white
+      - if @swap["comments_count"].present?
+        %p.text-xl.font-bold= pluralize(@swap["comments_count"], 'Comment') + " on Swap ID: " + @swap["id"].to_s
+      - else
+        %p.text-xl.font-bold Comments
+  .bg-white.dark:bg-black.shadow-md.pt-6.pb-8.px-6.rounded-br-2xl
+    - @swap["comments"].each do |comment|
+      %p.flex-none.mt-2.text-sm.text-gray-500
+        %span{class: light_button_no_padding}= link_to comment["alias"], "https://lightningnetwork.plus/nodes/" + comment["pubkey"].to_s, alt: comment["alias"], target: :_blank
+        %span wrote
+        %span= time_ago_in_words(comment["created_at"].to_datetime) + " ago"
+      %p.my-2= simple_format(comment["body"], class: "overflow-x-auto", style: "white-space: pre-wrap;")
+      %hr.mt-8.mb-6.border-dotted.border-gray-500
+    %p= link_to (icon("fas", "comment", class: "mr-2") + "Post Comment"), new_comment_path, class: positive_button

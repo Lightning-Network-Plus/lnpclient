@@ -1,0 +1,20 @@
+.p-6
+  .my-2
+    = form_tag(subscriptions_path, method: "post", id: "subscription-form") do
+      = hidden_field_tag :id, @swap["id"]
+      = button_tag type: "submit", class: positive_button, id: "apply-button", title: "Apply" do
+        = icon("fas", "plus", class: "mr-2") + "Apply to " + @shape.capitalize
+  %p.mt-4
+    %strong Only apply if you're running an LND client, and know how to open a dual funded channel with the lightning managment tool BOS (Balance of Satoshi). Other clients are not yet officially supported.
+  %p.my-4
+    %span By applying to this dual funded channel you commit to act within 48 hours to complete the channel opening.
+    %strong= formatted_satoshi(@swap["capacity_sats"] * 2)
+    -# %strong= number_with_delimiter(@swap["capacity"] * 2, delimeter: ",").to_s + "&nbsp;SAT".html_safe
+    %span is the total capacity of this channel.
+    %strong= formatted_satoshi(@swap["capacity_sats"])
+    -# %strong= number_with_delimiter(swap.capacity, delimeter: ",").to_s + "&nbsp;SAT".html_safe
+    %span is the amount you're contributing (half). You agree to collaborate with 
+    %strong= "Node " + next_identifier
+    %span to open the channel and keep the channel open for a time period of at least
+    %strong= pluralize(@swap["duration_months"], "month").gsub(" ","&nbsp;").html_safe
+    %span or more.

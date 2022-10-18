@@ -1,0 +1,20 @@
+.p-6
+  .my-2
+    = form_tag(subscriptions_path, method: "post", id: "subscription-form") do
+      = hidden_field_tag :id, @swap["id"]
+      = button_tag type: "submit", class: positive_button, id: "apply-button", title: "Apply" do
+        = icon("fas", "plus", class: "mr-2") + "Apply to " + @shape.capitalize
+  %p.mt-4
+    %span By applying to this Bitcoin Lightning Network liquidity swap you commit to open a channel within 48 hours with capacity of
+    %strong= formatted_satoshi(@swap["capacity_sats"])
+    %span to
+    %strong= "Node " + next_identifier
+    %span for a time period of at least
+    %strong= pluralize(@swap["duration_months"], "month").gsub(" ","&nbsp;").html_safe
+    %span or more to create outgoing capacity for your node.
+  %p.mt-4
+    In return, you will receive an incoming channel with the same capacity from
+    %strong= "Node " + previous_identifier
+    %span to create incoming capacity for your node.
+  %p.my-4
+    If participants fail to open channels, you may not receive an incoming channel, however you will not lose any funds and your newly opened channel will remain operational.

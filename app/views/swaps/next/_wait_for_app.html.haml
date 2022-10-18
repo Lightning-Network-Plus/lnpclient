@@ -1,0 +1,6 @@
+%p Share this page to recruit applicants and wait for all spaces to be filled:
+.flex.pr-12.my-2
+  %pre.flex-none.text-sm.bg-purple-100.dark:bg-gray-900.p-3.rounded.select-all.truncate.w-full= @swap["web_url"]
+  %button.flex-none{"data-controller" => "clipboard", "data-clipboard-text" => @swap["web_url"], class: copy_button}= icon("fa", "copy")
+- tweet_text = 'https://twitter.com/intent/tweet?text=' + 'Join%20our%20' + (@swap["capacity_sats"].to_f/1000000).to_s + 'M%20SAT%20%23Bitcoin%20%23LightningNetwork%20liquidity%20swap%20' +  @shape + '%20' + @swap["web_url"] + " @BTC_LN"
+%p.my-4= link_to (icon("fab", "twitter", class: "mr-2") + "Tweet to Recruit"), tweet_text, class: positive_button, target: "_blank"

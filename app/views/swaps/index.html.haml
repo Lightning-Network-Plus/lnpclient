@@ -1,0 +1,8 @@
+.flex
+  %h1.text-3xl.font-light.mb-4 Latest Swaps
+  .flex-grow
+  = render "swaps/swap_nav"
+%p.mb-4 Latest Lightning Network+ Swaps
+.grid.gap-6.xl:grid-cols-4.lg:grid-cols-3.md:grid-cols-2
+  - @json.each do |swap|
+    = render "swaps/swap", swap: swap

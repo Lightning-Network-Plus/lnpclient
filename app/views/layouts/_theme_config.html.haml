@@ -1,0 +1,24 @@
+%link{href: "https://fonts.gstatic.com", rel: "preconnect"}/
+%link{:as => "style", :href => "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap", :onload => "this.onload=null;this.rel='stylesheet'", :rel => "preload"}/
+%noscript
+  %link{:href => "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap", :rel => "stylesheet", :type => "text/css"}/
+:javascript
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          'lato': ['"Lato"', 'sans-serif']
+        },
+        keyframes: {
+          'swing': {
+            '0%, 6%, 12%' : { transform: 'rotate(7deg)' },
+            '3%, 9%' : { transform: 'rotate(-7deg)' },
+            '12%, 100%' : { transform: 'rotate(0deg)' },
+          }
+        },
+        animation: {
+          'swing': 'swing 3s linear infinite'
+        }
+      }
+    }
+  }

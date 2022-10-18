@@ -1,0 +1,35 @@
+%p
+  %span Initiate the dual funded channel with
+  %span= link_to "BOS (Balance of Satoshi)", "https://github.com/alexbosworth/balanceofsatoshis", class: light_button
+  - if (@swap["starts"].to_datetime + 48.hours).utc > Time.current
+    %strong= "within " + humanize_seconds((@swap["starts"].to_datetime + 48.hours).utc - Time.current.utc)
+  - else
+    %strong as soon as possible
+    %span as the 48 hour deadline has passed,
+  %span to
+  %strong Node A
+  %span with the following command, and then provide the information below as requested by BOS:
+%p.mt-2.bg-purple-50.dark:bg-gray-900.p-3.rounded.select-all.break-all.text-sm bos open-balanced-channel
+.my-2
+  %button{"data-controller" => "clipboard", "data-clipboard-text" => "bos open-balanced-channel", class: positive_button + "mr-2"}= icon("fa", "copy", class: "mr-2") + "Copy"
+%p.mt-5
+  %span= icon("fas", "bolt", class: "mr-2")
+  %span Lightning Pubkey of
+  %strong Node A
+  .flex.mt-2
+    %p.bg-purple-50.dark:bg-gray-900.p-3.rounded.select-all.break-all.text-sm= opening_to_pubkey
+  .my-2
+    %button{"data-controller" => "clipboard", "data-clipboard-text" => @lightning_address, class: positive_button + "mr-2"}= icon("fa", "copy", class: "mr-2") + "Copy"
+%p.mt-6= icon("fab", "bitcoin", class: "mr-2") + "Total Capacity in SAT"
+.flex.pr-12.my-2
+  %pre.flex-none.text-sm.bg-purple-50.dark:bg-gray-900.p-3.rounded.select-all.truncate.w-auto.mr-2= @swap["capacity_sats"] * 2
+  %button.flex-none{"data-controller" => "clipboard", "data-clipboard-text" => @swap["capacity_sats"] * 2, class: positive_button}= icon("fa", "copy", class: "mr-2") + "Copy"
+%p.text-sm.mt-2 Note: You will only be contributing half the total capacity from your node.
+= render(partial: "swaps/next/fee")
+%hr.my-6{style: "border-top: 1px dotted #8B5CF6"}
+%p Click the button below after you initiated the channel opening, and wait for the other participant to accept.
+.mt-4.mb-4
+  = form_tag(subscription_completed_path, method: "post", id: "subscription-completed-form") do
+    = hidden_field_tag :id, @swap["id"]
+    = button_tag type: "submit", class: positive_button, id: "completed-button", title: "Completed" do
+      = icon("fas", "check", class: "mr-2") + "Channel Opening Started"
