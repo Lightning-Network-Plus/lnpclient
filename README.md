@@ -23,7 +23,7 @@
 
 * CERTIFICATE_PATH: "~/yourdevnode.cert"
 
-* APP_LNPLUS_RAILS_ENVIRONMENT: "development"
+* RAILS_ENV: "production"
 
 ## Tests
 
