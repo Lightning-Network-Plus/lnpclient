@@ -103,7 +103,7 @@ class ApplicationController < ActionController::Base
     end
 
     def api_domain
-      ENV["API_URL"] # if API_URL not set in environmental variables, the live API is used
+      ENV["API_URL"]
     end
   
     def api_url(api_call)
