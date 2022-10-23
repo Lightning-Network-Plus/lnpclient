@@ -103,7 +103,7 @@ class ApplicationController < ActionController::Base
     end
 
     def api_domain
-      ENV["API_URL"] ||= "https://lightningnetwork.plus/api/2/" # if API_URL not set in environmental variables, the live API is used
+      "https://lightningnetwork.plus/api/2/" # if API_URL not set in environmental variables, the live API is used
     end
   
     def api_url(api_call)
