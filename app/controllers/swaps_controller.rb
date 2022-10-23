@@ -66,6 +66,9 @@ class SwapsController < ApplicationController
       if get_chain_balance < @swap["capacity_sats"]
         @can_apply = false
       end
+      if !@swap["tor_connection_allowed"]
+        @can_apply = false
+      end
     end
     
     # check if user is connected already to participants
@@ -108,13 +111,15 @@ class SwapsController < ApplicationController
     @meta = { title: "Create New Swap" }
   end
 
-  def create   
+  def create
     query_params = {
       'participants' => params[:participants],
       'capacity' => params[:capacity],
       'duration' => params[:duration],
       'min_channels' => params[:min_channels],
       'min_capacity' => params[:min_capacity],
+      'clearnet_connection_allowed' => false,
+      'tor_connection_allowed' => true,
       'rules' => params[:rules]
     }
     query = auth_hash.merge(query_params)

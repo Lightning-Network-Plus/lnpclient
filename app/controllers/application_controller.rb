@@ -103,8 +103,7 @@ class ApplicationController < ActionController::Base
     end
 
     def api_domain
-      "https://lightningnetwork.plus/api/2/"
-      # ENV["RAILS_ENV"] == "production" ? "https://lightningnetwork.plus/api/2/" : "http://localhost:4000/api/2/"
+      ENV["API_URL"] ||= "https://lightningnetwork.plus/api/2/" # if API_URL not set in environmental variables, the live API is used
     end
   
     def api_url(api_call)

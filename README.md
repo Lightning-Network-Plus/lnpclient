@@ -23,7 +23,7 @@
 
 * CERTIFICATE_PATH: "~/yourdevnode.cert"
 
-* RAILS_ENV: "production"
+* Optionally set for non-production api calls (dev only) - API_URL: "http://localhost:4000/api/2/"
 
 ## Tests
 
