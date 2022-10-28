@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def light_button_notice
-    "text-violet-700 hover:text-violet-900 dark:white dark:hover:text-violet-300 py-2 "
+    "text-violet-700 hover:text-violet-900 dark:text-white dark:hover:text-violet-300 py-2 "
   end
 
   def green_button
