@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   require "httparty"
   require "lnrpc"
-  # before_action :get_notification_count
 
   private
     def get_notification_count

@@ -16,4 +16,8 @@ class StaticController < ApplicationController
   def about
     @meta = { title: "About" }
   end
+
+  def error
+    @meta = { title: "Error" }
+  end
 end

@@ -1,5 +1,7 @@
-.bg-gray-100.dark:bg-black.rounded-t-lg.rounded-b-2xl.p-8.shadow-lg
-  - if @account.present?
+- if if errors_present(@account)
+  = render partial: "shared/error", locals: {json: @account}
+- else
+  .bg-gray-100.dark:bg-black.rounded-t-lg.rounded-b-2xl.p-8.shadow-lg
     %h1.text-3xl.font-bold.mb-4 Edit Account
     = form_tag(accounts_path, method: "post", id: "account-form") do
       %p.font-bold.mt-4= icon("fas", "envelope", class: "mr-2") + "Email"
@@ -39,5 +41,3 @@
         %span to upload.
       
       %p.mt-2= submit_tag "Update Account", class: positive_button + "mt-4"
-  - else
-    = render "shared/node_not_found"

@@ -185,4 +185,8 @@ module ApplicationHelper
     participants.select{|p| p["participant_identifier"] == identifier}.first
   end
 
+  def errors_present(json)
+    json.is_a?(Hash) && json["errors"].present?
+  end
+
 end

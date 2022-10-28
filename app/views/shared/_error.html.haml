@@ -1,0 +1,20 @@
+.bg-gray-100.dark:bg-black.rounded-t-lg.rounded-b-2xl.p-8.shadow-lg.max-w-2xl.mx-auto
+  %h1.text-3xl.font-bold.mb-4= icon("fas", "exclamation-circle", class: "mr-2") + "Error"
+  .col-1.mb-4
+    %p.mt-2 Sorry, we encountered problems.
+    - json["errors"].each do |key, value|
+      %p.mt-2.font-bold= key
+      %ul
+      - value.each do |error|
+        %li
+          %span= error
+          - if key == "node" && error == "not found"
+            %span - Sorry, your node is not yet found on the gossip network! If your node is brand new, please open at least one channel of any size to any node.
+          - if key == "user" && error == "inactive, or not found"
+            %span - A user will be automatically created for you the first time you successfully authenticate with your node.
+    %p.mt-2 If possible, please fix the errors above, try to use the online version of LN+, and contact us if you need help:
+    %p.mt-6
+      %span= link_to "LN+ Online", "https://lightningnetwork.plus", class: positive_button + "mr-2", target: :_blank
+      %span= link_to "Browse Nodes", "https://lightningnetwork.plus/nodes", class: positive_button + "mr-2", target: :_blank
+      %span= link_to "Contact", "https://lightningnetwork.plus/contact", class: positive_button + "mr-2", alt: "Send Us an Email", target: :_blank
+      %span= link_to "Twitter", "https://twitter.com/BTC_LN", class: positive_button + "mr-2", alt: "Follow Us", target: :_blank

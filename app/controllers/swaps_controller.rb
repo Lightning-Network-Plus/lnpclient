@@ -90,7 +90,7 @@ class SwapsController < ApplicationController
   def my_swaps
     @meta = { title: "My Swaps" }
     @json = lnp_api_json("get_my_swaps", auth_hash)
-    if @json.present?
+    unless helpers.errors_present(@json)
       @json_pending = @json.first["pending"]
       @json_opening = @json.first["opening"]
       @json_completed = @json.first["completed"]
@@ -100,7 +100,9 @@ class SwapsController < ApplicationController
   def to_dos
     @meta = { title: "To Dos" }
     @json = lnp_api_json("get_my_todos", auth_hash)
-    @json_opening = @json.first["opening"] if @json.present?
+    unless helpers.errors_present(@json)
+      @json_opening = @json.first["opening"] if @json.present?
+    end
   end
 
   def auto_verify_signature

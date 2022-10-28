@@ -1,11 +1,11 @@
-%h1.text-3xl.font-light.mb-4 My To Dos
-.bg-gray-100.dark:bg-black.p-8.rounded-t-lg.rounded-b-2xl.my-4.shadow-lg
-  - if @json_opening.present?
-    - if @json_opening.count > 0
+- if errors_present(@json)
+  = render partial: "shared/error", locals: {json: @json}
+- else
+  %h1.text-3xl.font-light.mb-4 My To Dos
+  .bg-gray-100.dark:bg-black.p-8.rounded-t-lg.rounded-b-2xl.my-4.shadow-lg
+    - if @json_opening.present? && @json_opening.count > 0
       - @json_opening.each do |swap|
         = render "swaps/to_do", swap: swap
     - else
-      %p= icon("fas", "check-circle", class: "mr-2") + "You have no to-dos. Join and existing swap or start a new one."
+      %p= icon("fas", "check-circle", class: "mr-2") + "You have no to-dos. Join an existing swap or start a new one."
       %p.mt-8= link_to (icon("fas", "plus", class: "mr-2") + "Start Swap"), new_swap_path, class: positive_button + "mb-2 py-2"
-  - else
-    = render "shared/node_not_found"

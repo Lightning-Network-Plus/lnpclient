@@ -1,6 +1,8 @@
-%h1.text-3xl.font-light.mb-4 Your Notifications
-.bg-gray-100.dark:bg-black.p-8.rounded-t-lg.rounded-b-2xl.my-4.shadow-lg
-  - if @notifications.present?
+- if errors_present(@notifications)
+  = render partial: "shared/error", locals: {json: @notifications}
+- else
+  %h1.text-3xl.font-light.mb-4 Your Notifications
+  .bg-gray-100.dark:bg-black.p-8.rounded-t-lg.rounded-b-2xl.my-4.shadow-lg
     - if @notifications["notification_count"] > 0
       .mb-4
         = form_tag(notifications_path, method: "post", id: "notification-form") do
@@ -30,5 +32,3 @@
             .message.mt-1= link_to notification["body"], notification["url"].gsub("https://lightningnetwork.plus", "")
     - else
       %p= icon("fas", "sun", class: "mr-2") + "You have no new notifications!"
-  - else
-    = render "shared/node_not_found"

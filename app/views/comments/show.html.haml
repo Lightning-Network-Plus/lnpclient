@@ -1,4 +1,4 @@
-- if @swap["errors"]
+- if errors_present(@swap)
   .mt-6.bg-yellow-100.px-6.py-4.rounded.dark:bg-yellow-900
     %p= icon("fas", "lock", class: "mr-2") + "Sorry, once the swap is full, only participants of this swap can read or post comments."
   %p.mt-6

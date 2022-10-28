@@ -2,8 +2,9 @@
   %h1.text-3xl.font-bold.mb-4 Checking Your Node
   .col-1.mb-4
     - if @json.present? && @json["node_found"] == true
+      %p.mb-2.text-lg= icon("fas", "bolt", class: "mr-2") + "Success"
       %p.mb-2
-        %span= icon("fas", "bolt", class: "mr-2") + "Success. We found you node with the pubkey:"
+        %span We found you node with the pubkey:
         %span= link_to @json["pubkey"], @json["node_url"]
       %p Set up your account, and join or start a swap.
       .flex.mb-4.mt-6
@@ -11,7 +12,8 @@
         .flex-none.mr-2= link_to "Swaps Open For Me", for_me_path, class: positive_button, title: "Swaps Open For Me"
         .flex-none= link_to "Latest Swaps", swaps_path, class: positive_button, title: "Latest Swaps"
     - else
-      %p= icon("fas", "heart-broken", class: "mr-2") + "Sorry, your node is not yet found on the gossip network! If you have no channels, open a channel to any node now. If you need help contact us."
+      %p.mb-2.text-lg= icon("fas", "heart-broken", class: "mr-2") + "Failed"
+      %p Sorry, your node is not yet found on the gossip network! If your node is brand new, please open at least one channel of any size to any node. Contact us if you need help!
       .flex.mb-4.mt-6
         .flex-none.mr-2= link_to "Browse Nodes", "https://lightningnetwork.plus/nodes", class: positive_button, title: "Browse Nodes", target: :_blank
-        .flex-none= link_to "Contact Us", "https://lightningnetwork.plus/contact", class: positive_button, title: "Browse Nodes", target: :_blank
+        .flex-none= link_to "Contact Us", "https://lightningnetwork.plus/contact", class: positive_button, title: "Contact", target: :_blank

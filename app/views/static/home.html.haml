@@ -18,18 +18,12 @@
     %p.text-sm.font-light.text-center Get your Bitcoin Lightning Network node running. Have at least one channel open. Check if your node can be found on the gossip network.
     .flex.items-center.justify-center.mb-2.mt-6
       .flex-none.mr-2= link_to "Check your node", auto_verify_signature_path, class: secondary_button, title: "Check your node"
-    -# %p.text-sm.font-light.text-center.mt-6 Alternatively, you can sign in with a signed message online.
-    -# .flex.items-center.justify-center.mb-2.mt-6
-    -#   .flex-none.mr-2= link_to "Sign in online", "https://lightningnetwork.plus/ln_sign_in", class: secondary_button, title: "Sign in online"
   .col-1.bg-purple-700.text-white.p-6.rounded-xl.shadow-lg
     %p.text-4xl.mb-4.text-center= icon("fas", "coins")
     %p.text-lg.mb-1.text-center Apply to a Swap
     %p.text-sm.font-light.text-center Make sure you have enough SATs on your Bitcoin node. Join an existing liquidity swap to get started.
     .flex.items-center.justify-center.mb-2.mt-6
       .flex-none.mr-2= link_to "Swaps for you", for_me_path, class: secondary_button, title: "Swaps for you"
-    -# %p.text-sm.font-light.text-center.mt-6 Alternatively, start a new Swap if you can't find any that fits your needs.
-    -# .flex.items-center.justify-center.mb-2.mt-6
-    -#   .flex-none.mr-2= link_to "Create swap", new_swap_path, class: secondary_button, title: "Create swap"
   .col-1.bg-pink-700.text-white.p-6.rounded-xl.shadow-lg
     %p.text-4xl.mb-4.text-center= icon("fas", "clock")
     %p.text-lg.mb-1.text-center Open channel

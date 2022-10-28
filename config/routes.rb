@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'features', to: "static#features", as: "features"
   get 'legal', to: "static#legal", as: "legal"
   get 'about', to: "static#about", as: "about"
+  get 'error', to: "static#error", as: "error"
   
   get "swaps", to: "swaps#index", as: "swaps"
   get "swaps/new", to: "swaps#new", as: "new_swap"
