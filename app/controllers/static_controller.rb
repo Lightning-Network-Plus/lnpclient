@@ -5,10 +5,6 @@ class StaticController < ApplicationController
     @meta = { title: "Home" }
   end
 
-  def features
-    @meta = { title: "Features" }
-  end
-
   def legal
     @meta = { title: "Legal" }
   end

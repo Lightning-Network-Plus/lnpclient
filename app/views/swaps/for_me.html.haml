@@ -2,7 +2,7 @@
   = render partial: "shared/error", locals: {json: @json}
 - else
   .flex
-    %h1.text-3xl.font-light.mb-4 Swaps Open for Me
+    %h1.text-3xl.font-light.mb-4 Liquidity Swaps Open for Me
     .flex-grow
     = render "swaps/swap_nav"
   - if @json.count > 0

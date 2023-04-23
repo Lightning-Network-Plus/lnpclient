@@ -1,17 +1,91 @@
-.bg-gray-100.dark:bg-black.rounded-t-lg.rounded-b-2xl.p-8.shadow-lg.max-w-2xl.mx-auto
-  %h1.text-3xl.font-bold.mb-4 About LN+
-  .col-1.mb-4
-    %p.mt-2.text-xl Lightning Network Plus (LN+) is a free web app that helps the users of the Bitcoin Lightning Network to team up and create liquidity swaps (aka Rings of Fire). The app walks you through each step to make it an easy process. You will get incoming liquidity, and will be able to grow your channel count and capacity twice as fast, without any extra costs.
-    %p.mt-4.font-bold Note: This is an offline version of the LN+ app.
-    %p.mt-4 Without LN+ when somebody creates a Bitcoin Lightning Network node, they can open channels to other nodes to create outgoing liquidity and thus they can spend SATs to pay for invoices. However, they would not be able to receive bitcoins on lightning, until they have spent some bitcoins on their channels. In order to receive bitcoins on LN, they will need another node to open a channel to them. Such an incoming channel will have incoming capacity, which allows for receiving funds.
-    %p.mt-4 LN+ helps node operators to collaboratively open channels to each other. We help 3 to 5 users connect to each other in a circle (or 2 users directly). This way each participant of such a liquidity swap will have incoming and outgoing capacity to each participant by doing just a single channel open, and nobody will have duplicated channels between each other.
-    %p.mt-4 By having more channels and capacity you will increase routing fees earned and ensure your node is highly reliable for both sending and receiving payments.
-    %p.mt-4 Liquidity swaps also help people of the world to get onboarded to lightning easier, in order to give them financial sovereignty and dignity.
-    %p.mt-4 Learn more about the features offered:
-    %p.mt-4= link_to "Features", features_path, class: positive_button + "mr-2", alt: "Learn More About Features"
-    %p.mt-6 Let's stay in touch:
-    %p.mt-4
-      %span= link_to "Contact", "https://lightningnetwork.plus/contact", class: positive_button + "mr-2", alt: "Send Us an Email", target: :_blank
-      %span= link_to "Twitter", "https://twitter.com/BTC_LN", class: positive_button, alt: "Follow Us", target: :_blank
-  
-  %small.mt-8.text-slate-300 API: #{ENV["API_URL"]}, ENV: #{Rails.env}
+- cache("about", expires_in: 1.day) do
+  .bg-slate-100.dark:bg-black.rounded-t-lg.rounded-b-2xl.p-8.shadow-lg.max-w-2xl.mx-auto
+    %h1.text-3xl.font-bold.mb-4 About LN+
+    .col-1.mb-4
+      %p.mt-2.text-xl Lightning Network Plus (LN+) is a complimentary web application designed to facilitate collaboration among Bitcoin Lightning Network node operators. With LN+, users can effortlessly discover and connect with one another, establish liquidity for their nodes, and enhance the security of their configurations. Additionally, LN+ also features a marketplace where visitors can find stores that accept Lightning payments or actively serve the Lightning Network.
+      %p.mt-4 You're currently using the offline version of LN+ which offers a subset of the features available in the online version as detailed below.
+      %p.mt-4.mb-2.font-bold LN+'s 5 main services are explained below:
+      %ul.list-disc.list-inside.mb-2
+        %p Available in the offline and online version:
+        %li
+          %span= link_to "Liquidity Swaps", about_path(anchor: "liquidity_swaps"), class: light_button, title: "About Liquidity Swaps"
+          %soan - Offline only features: auto-login & one-click channel opening
+        %p.mt-2 Available in the online version:
+        %li= link_to "Watch Swaps", about_path(anchor: "watch_swaps"), class: light_button, title: "About Watch Swaps"
+        %li= link_to "Node Explorer", about_path(anchor: "node_explorer"), class: light_button, title: "About Node Explorer"
+        %li= link_to "Lightning Market", about_path(anchor: "lightning_market"), class: light_button, title: "About Lightning Market"
+        %li= link_to "Direct Messages", about_path(anchor: "direct_messages"), class: light_button, title: "About Direct Messages"
+      %h2.mt-6.text-xl.font-bold= link_to icon("fas", "bolt", class: "mr-2") + "Liquidity Swaps", "#", id: "liquidity_swaps"
+      .my-6
+        %picture
+          %source{srcset: cdn_static("neon-triangle-large.webp"), alt: "ln+ liquidity swap triangle", width: "1400", height: "783", type: "image/webp"}
+          %source{srcset: cdn_static("neon-triangle-large.jpg"), alt: "ln+ liquidity swap triangle", width: "1400", height: "783", type: "image/jpeg"}
+          = image_tag cdn_static("neon-triangle-large.jpg"), alt: "ln+ liquidity swap triangle", width: "1400", height: "783"   
+      %h2.mt-4.font-bold Identifying the Problem
+      %p.mt-4 When someone establishes a Bitcoin Lightning Network node, they can open channels to other nodes, creating outgoing liquidity that enables them to spend SATs. However, to receive bitcoins via Lightning, they must first spend some bitcoins from their newly opened channels. To receive bitcoins on the Lightning Network, they need another node to open a channel to them with incoming capacity, allowing for funds reception. Moreover, to route SATs and earn routing fees, nodes require ample incoming and outgoing capacity.
+      %h2.mt-4.font-bold Introducing the Solution
+      %p.mt-4 LN+ enables users to collaborate and establish liquidity swaps (also known as Rings of Fire). The app guides users through each step, simplifying the process. As a result, users gain incoming liquidity and can double their channel count and capacity without incurring additional costs.
+      %p.mt-4 In more detail, LN+ assists node operators in collectively opening channels with one another. Groups of 3 to 5 users connect in a circular arrangement, ensuring that each participant has incoming and outgoing capacity with every other member by opening just a single channel, without duplicated channels between them.
+      %p.mt-4 LN+ also offers the option to find partners interested in opening dual-funded channels, allowing two users to create a single, balanced channel with twice the size. With more channels and capacity, users can increase routing fees earned and ensure their nodes remain highly reliable for both sending and receiving payments.
+      %p.mt-4 In general, liquidity swaps help people worldwide to easily onboard to the Lightning Network, enhancing its decentralization, robustness, and reliability while reducing dependence on a few large nodes for connectivity.
+      %p.mt-8= link_to "View Liquidity Swaps", swaps_path, class: positive_button + "mr-2", alt: "View Liquidity Swaps"
+      
+      %hr.my-6{style: "border-top: 1px dotted #8B5CF6"}
+      %h2.mt-6.text-xl.font-bold= link_to icon("fas", "eye", class: "mr-2") + "Watch Swaps", "#", id: "watch_swaps"
+      .my-6
+        %picture
+          %source{srcset: cdn_static("neon-watch-large.webp"), alt: "ln+ watchswap", width: "1400", height: "783", type: "image/webp"}
+          %source{srcset: cdn_static("neon-watch-large.jpg"), alt: "ln+ watchswap", width: "1400", height: "783", type: "image/jpeg"}
+          = image_tag cdn_static("neon-watch-large.jpg"), alt: "ln+ watchswap", width: "1400", height: "783"   
+      %h2.mt-4.font-bold Identifying the Problem
+      %p.mt-4 Without a watchtower, if your node is offline for an extended period, a channel partner might attempt a malicious channel closure by force-closing the channel with an outdated, more favorable state (with funds on their side). If your node remains offline beyond the channel closure time lock (ranging from 1 day to 2 weeks depending on settings), you won't be able to contest this malicious closure, potentially receiving fewer on-chain funds than you should in a fair channel closure.
+      %h2.mt-4.font-bold Introducing the Solution
+      %p.mt-4 LN+ enables users to collaborate and create watchtower swaps (watch swaps). The app guides users through each step, simplifying the process. Your node will be protected from malicious actors even when offline, at no cost to you, while you protect another node of similar size in return.
+      %p.mt-4 With a watchtower client implemented, the watchtower service can contest malicious channel closures on your behalf even if you're offline. Moreover, as per Lightning Network rules, the attacker will be penalized by transferring all channel funds to you, making a successful defense profitable.
+      %p.mt-4 It's essential to note that a watchtower service cannot misuse information or steal your funds. They can only issue a punish transaction in case of a breach, with funds directed to you.
+      %p.mt-4 In general, having watchtowers running on many nodes protects all nodes through game theory. Potential attackers won't know which nodes have watchtowers or how many, increasing the risk and cost of attacks on offline nodes. These offline nodes can act as honeypots, attracting attackers and then seizing the attacker's funds through punish transactions.
+      %p.mt-4 Running a watchtower service requires resources, as your node will receive encrypted versions of the latest channel states from the watched node and monitor the blockchain for malicious transactions.
+      %p.mt-4 Since operating a watchtower service consumes resources, avoid publicly sharing your or your watch swap partner's service address, preventing unauthorized connections to the service.
+      %p.mt-4
+        %span Before participating in watch swaps on LN+, familiarize yourself with watchtowers, watchtower service setup, and watchtower clients. Consult resources such as
+        %span= link_to "LND watchtower", "https://github.com/lightningnetwork/lnd/blob/master/docs/watchtower.md", class: light_button, target: "_blank"
+        %span or
+        %span= link_to "The Eye of Satoshi", "https://github.com/talaia-labs/rust-teos", class: light_button, target: "_blank"
+        %span service for CLN. If you're running an
+        %span= link_to "Umbrel", "https://umbrel.com", class: light_button, target: "_blank"
+        %span , the Advanced Settings in your Lightning app contain your watchtower settings.
+      %p.mt-8= link_to "View Watch Swaps", "https://lightningnetwork.plus/watch_swaps", class: positive_button + "mr-2", alt: "View Watch Swaps"
+      %hr.my-6{style: "border-top: 1px dotted #8B5CF6"}
+      %h2.mt-6.text-xl.font-bold= link_to icon("fas", "search", class: "mr-2") + "Node Explorer", "#", id: "node_explorer"
+      %h2.mt-4.font-bold Identifying the Problem
+      %p.mt-4 With tens of thousands of Bitcoin Lightning Network nodes operated by various entities, it can be challenging to keep track of them, find the right one to connect to, and learn more about them.
+      %h2.mt-4.font-bold Introducing the Solution
+      %p.mt-4 LN+'s Bitcoin Lightning Network Node Explorer enables you to browse and search for publicly visible nodes on the network. When users claim their node profiles, you can access information shared by the node operator, such as their Twitter handle, website URL, public posts, swaps, and more.
+      %p.mt-4 As a node operator on LN+, you can also promote your node profile to enhance visibility, allowing other node operators to discover your node and establish incoming channels.
+      %p.mt-8= link_to "View Node Explorer", "https://lightningnetwork.plus/nodes", class: positive_button + "mr-2", alt: "View Node Explorer"
+
+      %hr.my-6{style: "border-top: 1px dotted #8B5CF6"}
+      %h2.mt-6.text-xl.font-bold= link_to icon("fas", "store", class: "mr-2") + "Lightning Market", "#", id: "lightning_market"
+      %h2.mt-4.font-bold Identifying the Problem
+      %p.mt-4 To establish a circular economy based on Bitcoin as a currency and the Lightning Network as a payment rail, people need to earn SATs and spend them on goods and services they require. Bitcoin and the Lightning Network also depend on various services to grow and thrive. However, finding reliable and particularly small businesses can be challenging.
+      %h2.mt-4.font-bold Introducing the Solution
+      %p.mt-4 The LN+ Lightning Market is a platform where individuals can promote their goods and services. Users who have experienced the services or purchased goods can rate the providers and post comments. This way, the Lightning Market becomes a hub for discovering reliable and trustworthy Lightning-enabled businesses.
+      %p.mt-4 
+      %p.mt-8= link_to "View Lightning Market", "https://lightningnetwork.plus/market", class: positive_button + "mr-2", alt: "View Node Explorer"
+
+      %hr.my-6{style: "border-top: 1px dotted #8B5CF6"}
+      %h2.mt-6.text-xl.font-bold= link_to icon("fas", "envelope", class: "mr-2") + "Direct Messages", "#", id: "direct_messages"
+      %h2.mt-4.font-bold Identifying the Problem
+      %p.mt-4 Contacting Bitcoin Lightning Network node operators can be challenging due to their anonymity or pseudonymity and lack of official contact information. Although LN+ node profiles may include a Twitter link, direct messaging may still be unavailable.
+      %h2.mt-4.font-bold Introducing the Solution
+      %p.mt-4 LN+ offers a messaging function between node operators. To send a message to a node operator, simply click the "Message" button on their node profile. Messages can be read online on LN+, and if the recipient has email notifications enabled on their profile, they will also be notified of new incoming messages.
+      %p.mt-8= link_to "View Direct Messages", "https://lightningnetwork.plus/messages", class: positive_button + "mr-2", alt: "View Direct Messages"
+      
+      %hr.my-6{style: "border-top: 1px dotted #8B5CF6"}
+      %h2.mt-6.text-xl.font-bold= icon("fas", "info-circle", class: "mr-2") + "Learn more"
+      %p.mt-6
+        %span= link_to "List of Features", "https://lightningnetwork.plus/features", class: positive_button + "mr-2", alt: "Learn More About Features"
+        %span= link_to "Contact", "https://lightningnetwork.plus/contact", class: positive_button + "mr-2", alt: "Send Us an Email"
+        %span= link_to "Nostr", "https://snort.social/p/npub17tlh448s3tfdfgymehqdkdn52as59qsrax0n9h58pk54wcmqyc2qklzsxj", class: positive_button, alt: "Follow Us on Nostr"
+        %span= link_to "Twitter", "https://twitter.com/BTC_LN", class: positive_button, alt: "Follow Us on Twitter"
+        

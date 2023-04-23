@@ -1,37 +1,81 @@
-%nav.bg-gray-700.dark:bg-gray-900.py-4
+%nav.bg-slate-800.dark:bg-black.py-8.mt-4
   .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8
     .flex.items-center.justify-center
-      .text-white.text-sm.font-light
+      .flex.flex-wrap
+        .mx-3.my-1
+          = link_to icon("fas", "bolt", class: "mr-1") + "Liquidity Swaps", swaps_path, class: nav_link
+        .mx-3.my-1
+          = link_to icon("fas", "eye", class: "mr-1") + "Watch Swaps", "https://lightningnetwork.plus/watch_swaps", class: nav_link
+        .mx-3.my-1
+          = link_to icon("fas", "search", class: "mr-1") + "Node Explorer", "https://lightningnetwork.plus/nodes", class: nav_link
+        .mx-3.my-1
+          = link_to icon("fas", "store", class: "mr-1") + "Lightning Market", "https://lightningnetwork.plus/market", class: nav_link
+        .mx-3.my-1
+          = link_to icon("fas", "question-circle", class: "mr-1") + "Support", "https://lightningnetwork.plus/questions", class: nav_link
+        .mx-3.my-1
+          = link_to icon("fas", "envelope", class: "mr-1") + "Messages", "https://lightningnetwork.plus/messages", class: nav_link
+        .mx-3.my-1
+          = link_to icon("fas", "bookmark", class: "mr-1") + "Bookmarks", "https://lightningnetwork.plus/bookmarked_swaps", class: nav_link
+%nav.bg-slate-700.dark:bg-slate-900.py-6
+  .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8
+    .flex.items-center.justify-center
+      .text-sm
         .flex.flex-wrap
           .mx-2.my-1
-            = "© " + Time.now.year.to_s + " All Rights Reserved"
+            .text-slate-200.font-light= "© " + Time.now.year.to_s + " All Rights Reserved"
           .mx-2.my-1
-            = link_to "About", about_path
+            .hover:text-violet-700= link_to icon("fas", "bolt", class: "mr-1") + "About", about_path, class: nav_link
           .mx-2.my-1
-            = link_to "Features", features_path
+            .hover:text-violet-700= link_to icon("fas", "envelope", class: "mr-1") + "Contact", "https://lightningnetwork.plus/contact", class: nav_link
           .mx-2.my-1
-            = link_to "Swaps", swaps_path
+            .hover:text-violet-700= link_to icon("fas", "gavel", class: "mr-1") + "Legal", "https://lightningnetwork.plus/legal", class: nav_link
           .mx-2.my-1
-            = link_to "Nodes", "https://lightningnetwork.plus/nodes", target: :_blank
+            .hover:text-violet-700= link_to icon("fab", "bitcoin", class: "mr-1") + "White Papers", "https://lightningnetwork.plus/white_papers", class: nav_link
           .mx-2.my-1
-            = link_to "Messages", "https://lightningnetwork.plus/messages", target: :_blank
+            .hover:text-violet-700= link_to icon("fas", "robot", class: "mr-1") + "API", "https://lightningnetwork.plus/api_documentation", class: nav_link
           .mx-2.my-1
-            = link_to "Support", "https://lightningnetwork.plus/questions", target: :_blank
+            .hover:text-violet-700= link_to icon("fab", "twitter", class: "mr-1") + "Twitter", "https://twitter.com/BTC_LN", class: nav_link
           .mx-2.my-1
-            = link_to "Watchtower", "https://lightningnetwork.plus/watchtower", target: :_blank
+            .hover:text-violet-700= link_to icon("fas", "feather", class: "mr-1") + "Nostr", "https://snort.social/p/npub17tlh448s3tfdfgymehqdkdn52as59qsrax0n9h58pk54wcmqyc2qklzsxj", class: nav_link
           .mx-2.my-1
-            = link_to "White Papers", "https://lightningnetwork.plus/white_papers", target: :_blank
-          .mx-2.my-1
-            = link_to "Posts", "https://lightningnetwork.plus/posts", target: :_blank
-          .mx-2.my-1
-            = link_to "Mall", "https://lightningnetwork.plus/mall", target: :_blank
-          .mx-2.my-1
-            = link_to "Twitter", "https://twitter.com/BTC_LN", target: :_blank
-          .mx-2.my-1
-            = link_to "Contact", "https://lightningnetwork.plus/contact", target: :_blank
-          .mx-2.my-1
-            = link_to "Legal", legal_path
-          .mx-2.my-1
-            = link_to "API", "https://lightningnetwork.plus/api_documentation", target: :_blank
-          .mx-2.my-1
-            = link_to icon("fas", "heart", class: "mr-1") + "Donate", "https://lightningnetwork.plus/donation", target: :_blank
+            .hover:text-violet-700= link_to icon("fas", "heart", class: "mr-1") + "Donate", "https://lightningnetwork.plus/donation", class: nav_link
+
+
+
+-# %nav.bg-gray-700.dark:bg-gray-900.py-4
+-#   .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8
+-#     .flex.items-center.justify-center
+-#       .text-white.text-sm.font-light
+-#         .flex.flex-wrap
+-#           .mx-2.my-1
+-#             = "© " + Time.now.year.to_s + " All Rights Reserved"
+-#           .mx-2.my-1
+-#             = link_to "About", about_path
+-#           .mx-2.my-1
+-#             = link_to "Features", features_path
+-#           .mx-2.my-1
+-#             = link_to "Swaps", swaps_path
+-#           .mx-2.my-1
+-#             = link_to "Nodes", "https://lightningnetwork.plus/nodes", target: :_blank
+-#           .mx-2.my-1
+-#             = link_to "Messages", "https://lightningnetwork.plus/messages", target: :_blank
+-#           .mx-2.my-1
+-#             = link_to "Support", "https://lightningnetwork.plus/questions", target: :_blank
+-#           .mx-2.my-1
+-#             = link_to "Watchtower", "https://lightningnetwork.plus/watchtower", target: :_blank
+-#           .mx-2.my-1
+-#             = link_to "White Papers", "https://lightningnetwork.plus/white_papers", target: :_blank
+-#           .mx-2.my-1
+-#             = link_to "Posts", "https://lightningnetwork.plus/posts", target: :_blank
+-#           .mx-2.my-1
+-#             = link_to "Mall", "https://lightningnetwork.plus/mall", target: :_blank
+-#           .mx-2.my-1
+-#             = link_to "Twitter", "https://twitter.com/BTC_LN", target: :_blank
+-#           .mx-2.my-1
+-#             = link_to "Contact", "https://lightningnetwork.plus/contact", target: :_blank
+-#           .mx-2.my-1
+-#             = link_to "Legal", legal_path
+-#           .mx-2.my-1
+-#             = link_to "API", "https://lightningnetwork.plus/api_documentation", target: :_blank
+-#           .mx-2.my-1
+-#             = link_to icon("fas", "heart", class: "mr-1") + "Donate", "https://lightningnetwork.plus/donation", target: :_blank

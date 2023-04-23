@@ -1,7 +1,7 @@
 - if errors_present(@json)
   = render partial: "shared/error", locals: {json: @json}
 - else
-  %h1.text-3xl.font-light.mb-4 My Swaps
+  %h1.text-3xl.font-light.mb-4 My Liqidity Swaps
   %h2.text-xl.mb-6 Open for Applications
   .grid.gap-6.xl:grid-cols-4.lg:grid-cols-3.md:grid-cols-2
     - @json_pending.each do |swap|

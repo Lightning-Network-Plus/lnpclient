@@ -1,6 +1,10 @@
 module ApplicationHelper
   # Tailwind CSS Styles
 
+  def nav_link
+    "font-light text-white hover:text-violet-300"
+  end
+
   def positive_button
     "text-white bg-violet-700 py-2 px-5 rounded hover:bg-violet-900 shadow hover:shadow-lg h-10 active:bg-pink-700 "
   end

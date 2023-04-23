@@ -10,7 +10,7 @@
       .flex.mb-4.mt-6
         .flex-none.mr-2= link_to "Edit Account", edit_account_path, class: positive_button, title: "Edit Account"
         .flex-none.mr-2= link_to "Swaps Open For Me", for_me_path, class: positive_button, title: "Swaps Open For Me"
-        .flex-none= link_to "Latest Swaps", swaps_path, class: positive_button, title: "Latest Swaps"
+        .flex-none= link_to "Latest Liquidity Swaps", swaps_path, class: positive_button, title: "Latest Liquidity Swaps"
     - else
       %p.mb-2.text-lg= icon("fas", "heart-broken", class: "mr-2") + "Failed"
       %p Sorry, your node is not yet found on the gossip network! If your node is brand new, please open at least one channel of any size to any node. Contact us if you need help!
